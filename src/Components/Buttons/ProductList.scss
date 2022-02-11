@@ -10,15 +10,27 @@
     justify-content: space-between;
 }
 
+a {
+    text-decoration: none;
+    color: $black-color;
+}
+
 .card {
-    flex: 1 1 370px;
+    flex: 1 1;
     margin-bottom: 4rem;
     padding: 15px;
+    min-width: 370px;
+    img {
+        width: 26rem;
+        margin: 0 auto;
+        height: 58vh;
+    }
+    
     // margin: 0 auto;
     // text-align: center;
     // background-color: rgb(117, 61, 61);
     h3 {
-        color: black;
+        color: $gray-color;
         margin-top: 1rem;
     }
 
@@ -54,8 +66,3 @@
     }
 }
 
-img {
-    width: 100%;
-    margin: 0 auto;
-    height: 58vh;
-}
