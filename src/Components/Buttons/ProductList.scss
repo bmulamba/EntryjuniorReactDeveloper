@@ -2,36 +2,62 @@
 
 .product-section{
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: left;
     flex-wrap: wrap;
     width: 90%;
     margin: 0 auto;
-    padding-top: 3rem;
-    justify-content: space-between;
-}
-
-a {
-    text-decoration: none;
-    color: $black-color;
+    padding-top: 2rem;
 }
 
 .card {
-    flex: 1 1;
-    margin-bottom: 4rem;
-    padding: 15px;
-    min-width: 370px;
-    img {
-        width: 26rem;
-        margin: 0 auto;
-        height: 58vh;
+    flex: 1 1 300px;
+    background-color: $white-color;
+    position: relative;
+    overflow: hidden;
+    margin: 15px;
+    padding: 5px;
+
+    .card-image {
+        padding: 8px;
+        text-align: center;
+
+        .img-card {
+            height: 460px;
+            width: 410px;
+        }
     }
-    
-    // margin: 0 auto;
-    // text-align: center;
-    // background-color: rgb(117, 61, 61);
-    h3 {
-        color: $gray-color;
-        margin-top: 1rem;
+
+    &:hover {
+        position: relative;
+        box-shadow: 4px 4px 7px 4px rgba(199, 199, 199, .5);
+        transform: scale(1.01);
+        transition: all ease-in-out 300ms;
+
+        .product-cart {
+            position: absolute;
+            display: block;
+            color: $white-color;
+            font-size: 22px;
+            border: 1px solid $green-color;
+            background-color: $green-color;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 50%;
+            right: 1.72rem;
+            top: 73%;
+            cursor: pointer;
+        }
+    }
+
+    .card-info {
+        padding: 10px;
+         .cart-name, .cart-price{
+             margin: 10px 0;
+         }
+         &:hover {
+             color: $black-color;
+         }
     }
 
     .product-cart {
@@ -39,30 +65,9 @@ a {
     }
 }
 
-.header-product{
-    padding: 3rem 5%;
 
-}
-
-.card:hover {
-    position: relative;
-    box-shadow: 4px 4px 7px 4px rgba(199, 199, 199, .5);
-    transform: scale(1.01);
-    transition: all ease-in-out 300ms;
-
-    .product-cart {
-        position: absolute;
-        display: block;
-        color: white;
-        font-size: 22px;
-        border: 1px solid $green-color;
-        background-color: $green-color;
-        padding: 1rem;
-        text-align: center;
-        border-radius: 50%;
-        right: 2rem;
-        top: 76%;
-        cursor: pointer;
+@media screen and (max-width : 1570px) {
+    .product-section{
+        justify-content: center ;
     }
 }
-

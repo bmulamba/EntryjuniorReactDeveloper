@@ -62,13 +62,15 @@ class ProductList extends React.Component {
             return prod.map(item => {
                     return(
                         <div key={item.id}>
-                            <Link to={`/product/${item.id}`} onClick={() => { localStorage['selectedProductId'] = item.id }}>
+                            <Link className="pro-card" to={`/product/${item.id}`} onClick={() => { localStorage['selectedProductId'] = item.id }}>
                                 <div className='card'>
                                     <div className="card-image">
-                                        <img src={item.gallery[0]} alt='{item.id}'/>
+                                        <img className="img-card" src={item.gallery[0]} alt='{item.id}'/>
                                     </div>
-                                    <h3 className='cart-name'>{item.name}</h3>
-                                    <h3 className='cart-price'> { localStorage['currencySymbol'] } <b>{ item.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount }</b></h3>
+                                    <div className="card-info">
+                                        <h3 className='cart-name'>{item.name}</h3>
+                                        <h3 className='cart-price'> { localStorage['currencySymbol'] } <b>{ item.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount }</b></h3>
+                                    </div>
                                     <Link to="#" className='product-cart' onClick={()=> this.addToCart(item)}>
                                         <i className="fa fa-shopping-cart" ></i>
                                     </Link>

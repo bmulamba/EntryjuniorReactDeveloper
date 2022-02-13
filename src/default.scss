@@ -7,4 +7,15 @@
 body{
     font-family: Roboto, sans-serif;
     background-color: rgba(243, 243, 243, 0.4);
+    a, a:hover {
+        color: #000;
+    }
+
+    // @media screen and (max-width : 1570px) {
+    //     background-color: aqua;
+    // }
+
+    // @media screen and (max-width : 40rem) {
+    //     background-color: red;
+    // }
 }

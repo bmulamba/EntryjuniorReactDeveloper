@@ -2,10 +2,26 @@ import React, { Component } from 'react';
 import './Cart.scss'
 
 export default class Cart extends Component {
+
+  cartdetails () {
+    var products = JSON.parse(localStorage['cardProduct']);
+    return (
+      products.map(product => {
+        return (<div>
+          <h1>{product.name}</h1>
+          <h2>{product.brand}</h2>
+          <h2>{localStorage['currencySymbol']} {product.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount * product.quantity}</h2>
+        </div>
+      )
+    })
+    )
+  }
+
+
   render() {
     return <>
     <div className='product-in-cart mini-active'>
-      <div className='cart-container'>
+      {/* <div className='cart-container'>
         <div className='title'>
             <h1>cart</h1>
         </div>
@@ -33,7 +49,8 @@ export default class Cart extends Component {
         </div>
 
         
-      </div>
+      </div> */}
+      { this.cartdetails() }
     </div>
     </>
   }

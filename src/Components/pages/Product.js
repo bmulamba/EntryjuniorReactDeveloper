@@ -6,9 +6,45 @@ import './Product.scss'
 
 
 class Product extends Component {
+  constructor(props){
+    super(props);
+    //productSze: 'M'
+
+    this.addToCart = this.addToCart.bind(this)
+  }
+
+  addToCart(prod){
+    prod['quantity'] = 1;
+
+    if(localStorage['cardProduct'] == null){
+        localStorage['cardProduct'] = JSON.stringify([prod]);
+    } else{
+        let products = JSON.parse(localStorage['cardProduct']) || []
+        const index = products.findIndex((obj => obj.id === prod.id));
+        if(index >= 0){
+            products[index].quantity += 1
+        }
+        else{
+            products.push(prod)
+        }               
+        localStorage['cardProduct'] = JSON.stringify(products);
+    } 
+    
+    let amount = 0;
+    JSON.parse(localStorage['cardProduct']).map((val)=>{
+        return (
+            amount += (val.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount * val.quantity)
+        )
+     })
+    localStorage['totalCardAmount'] = amount.toFixed(2);
+
+    window.location.reload(false);
+}
+
 
   displaySingleProduct(){
     var data = this.props.data;
+
     if (data.loading) {
       return (<div>Loading products</div>)
     } else {
@@ -16,14 +52,21 @@ class Product extends Component {
       
       if(data.product){
         prod = data.product;
+
+        console.log(prod.description);
+
+         var imgprod  = this.props.data.product.gallery
+
           return(
             <div className='product-section'>
               <div className='product-item'>
                 <div className='side-item'>
-                  <span> <img src={prod.gallery[0]} alt='{item.id}'/> </span>
-                  <span> <img src={prod.gallery[1]} alt='{item.id}'/> </span>
-                  <span> <img src={prod.gallery[2]} alt='{item.id}'/> </span>
-                </div>
+                  { 
+                    imgprod.map(item  => {
+                      return <div key={item} className="prod-sm-image" > <img src={item} alt=""/></div>
+                    })
+                  }
+                  </div>
                 <div className='product-image'>
                   <span> <img src={prod.gallery[0]} alt='{item.id}'/> </span>
                 </div>
@@ -44,9 +87,9 @@ class Product extends Component {
                   <span>{ localStorage['currencySymbol'] } <b>{ prod.prices.find(p => p.currency.symbol === localStorage['currencySymbol'])?.amount }</b></span>
                 </div>
                 <div className='product-add-cart'>
-                  <button className='btn-add-to-cart'>add to cart</button>
-                </div>
-                  {prod.description}
+                  <button className='btn-add-to-cart' onClick={()=> this.addToCart(prod)}>add to cart</button>
+                </div >
+                <h4 dangerouslySetInnerHTML={{__html : prod.description }}></h4>
                 </div>
               </div>
             </div>
