@@ -9,6 +9,10 @@ class ProductList extends React.Component {
 
     constructor(props){
         super(props);
+
+        this.state = {
+            categoryName : 'All'
+        }
         this.addToCart = this.addToCart.bind(this)
     }
 
@@ -53,40 +57,59 @@ class ProductList extends React.Component {
             } 
         }
         
+        // this.setState({
+        //     categoryName : selectedCategory
+        // })
+
         if (data.loading) {
             return (<div>Loading products</div>)
         } else {
-        var prod = [];          
+        var prod = []; 
         if(products.length > 0){
             prod = products[0].products;
-            return prod.map(item => {
-                    return(
-                        <div key={item.id}>
-                            <Link className="pro-card" to={`/product/${item.id}`} onClick={() => { localStorage['selectedProductId'] = item.id }}>
-                                <div className='card'>
-                                    <div className="card-image">
-                                        <img className="img-card" src={item.gallery[0]} alt='{item.id}'/>
-                                    </div>
-                                    <div className="card-info">
-                                        <h3 className='cart-name'>{item.name}</h3>
-                                        <h3 className='cart-price'> { localStorage['currencySymbol'] } <b>{ item.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount }</b></h3>
-                                    </div>
-                                    <Link to="#" className='product-cart' onClick={()=> this.addToCart(item)}>
-                                        <i className="fa fa-shopping-cart" ></i>
-                                    </Link>
+            return (
+            <> 
+                <div>
+                    {selectedCategory}
+                </div>
+                <div>
+                {prod.map(item => {
+                    
+                return(
+                
+                    <div key={item.id}>
+                        <Link className="pro-card" to={`/product/${item.id}`} onClick={() => { localStorage['selectedProductId'] = item.id }}>
+                            <div className='card'>
+                                <div className="card-image">
+                                    <img className="img-card" src={item.gallery[0]} alt='{item.id}'/>
                                 </div>
-                            </Link>
-                        </div>                        
-                    )
-                })
-            }
+                                <div className="card-info">
+                                    <h3 className='cart-name'>{item.name}</h3>
+                                    <h3 className='cart-price'> { localStorage['currencySymbol'] } <b>{ item.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount }</b></h3>
+                                </div>
+                                <Link to="#" className='product-cart' onClick={()=> this.addToCart(item)}>
+                                    <i className="fa fa-shopping-cart" ></i>
+                                </Link>
+                            </div>
+                        </Link>
+                    </div> 
+                )
+                }
+                )}
+                </div>  </>)
         }
+    }
     }
 
     render() { 
+        
         return (
             <div>
+                {/* <div>
+                    {this.state.categoryName}
+                </div> */}
                 <div className="product-section">
+                    
                     {this.displayProducts()} 
                 </div>
             </div>

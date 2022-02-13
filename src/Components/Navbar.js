@@ -61,7 +61,7 @@ class Navbar extends Component {
     displayCurrency(){
         var data = this.props.data;
         if(data.loading){
-            return(<p>loading</p>)
+            return(<p>Loading</p>)
         } else{
             return data.currencies.map((item)=>{
                 return (
@@ -192,7 +192,7 @@ class Navbar extends Component {
                             ):
                             (
                                 <div className='card-content-container-full'>
-                                    <h4 className='cart-qty-heard'>My Bag, {typeof localStorage['cardProduct'] === 'undefined' || JSON.parse(localStorage['cardProduct']).length } items</h4>
+                                    <h5 className='cart-qty-heard'>My Bag, {typeof localStorage['cardProduct'] === 'undefined' || JSON.parse(localStorage['cardProduct']).length } items</h5>
                                     <div className='cart-content-container'> 
                                                                 
                                         <div className='card-content'>

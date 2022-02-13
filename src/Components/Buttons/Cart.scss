@@ -8,7 +8,7 @@
         width: 90%;
         margin: 0 auto;
         .title {
-            text-transform: uppercase;
+            text-transform: capitalize;
             padding: 2rem 0;
         }
 
@@ -20,16 +20,22 @@
             justify-content: space-between;
             border-top: 1px solid gray;
             padding: 10px 0;
+     
             
 
-            #line {
-                width: 100%;
-                border: 1px solid gray;
-            }
+            // #line {
+            //     width: 100%;
+            //     border: 1px solid gray;
+            // }
 
             .cart-desc-belt{
                 display: flex;
                 flex-direction: column;
+                width: 100%;
+                // flex-direction: row;
+                justify-content: space-between;
+                border-top: 1px solid gray;
+                padding: 10px 0;
                 #product-name {
                     text-transform: capitalize;
                     margin-bottom: 10px;
@@ -39,47 +45,47 @@
                     margin: 10px 0;
                     font-weight: lighter;
                 }
+                .cart-size {
+                    display: flex;
+                    span {
+                        text-transform: capitalize;
+                        padding: 1rem;
+                        margin: 1rem 20px 20px 0;
+                        border: 1px solid gray;
+                        
+                    }
+                }    
             }
 
-            .cart-size {
+            
+            .cart-mini-imag {
                 display: flex;
-                span {
-                    text-transform: uppercase;
-                    padding: 1rem;
-                    margin: 1rem 20px 20px 0;
-                    border: 1px solid gray;
-                    
-                }
-            }
-        }
-        .cart-mini-imag {
-            display: flex;
-            flex-direction: row;
-    
-            .cart-mini-add {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-              
-                span {
-                    padding: 1rem;
-                    border: 1px solid grey;
-                    margin: 0 1rem;
-                    font-size: 20px;
+                flex-direction: row;
+        
+                .cart-mini-add {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                
+                    button {
+                        padding: 1rem;
+                        border: 1px solid grey;
+                        margin: 0 1rem;
+                        font-size: 20px;
 
+                    }
+                    .cart-quantity {
+                        padding: 1.85rem 0;
+                        font-size: 20px;
+                    }
+        
                 }
-                .cart-quantity {
-                    padding: 1.85rem 0;
-                    font-size: 20px;
+                .cart-img img{
+                    width: 12vw;
+                    height: 26vh;
                 }
-    
+        
             }
-            .cart-img img{
-                width: 12vw;
-                height: 26vh;
-            }
-    
         }
     }
-  
 }

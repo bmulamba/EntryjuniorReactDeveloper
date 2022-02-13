@@ -8,13 +8,21 @@ import './Product.scss'
 class Product extends Component {
   constructor(props){
     super(props);
-    //productSze: 'M'
 
+      this.state = {
+        disableAddToCardBtn : true,
+        productSize : 'M'
+      }
+
+    // localStorage['productSize'] = 'M';
+    
     this.addToCart = this.addToCart.bind(this)
   }
 
   addToCart(prod){
     prod['quantity'] = 1;
+
+    // console.log(this.state.productSize);
 
     if(localStorage['cardProduct'] == null){
         localStorage['cardProduct'] = JSON.stringify([prod]);
@@ -37,9 +45,16 @@ class Product extends Component {
         )
      })
     localStorage['totalCardAmount'] = amount.toFixed(2);
+    localStorage['productSize'] = this.state.productSize;
 
     window.location.reload(false);
-}
+  }
+
+  handleSizeSelect = (size) => {
+    this.setState({disableAddToCardBtn : false, productSize : size});
+      // localStorage['productSize'] = this.state.productSize;
+      // console.log(this.state.productSize);
+  }
 
 
   displaySingleProduct(){
@@ -62,8 +77,8 @@ class Product extends Component {
               <div className='product-item'>
                 <div className='side-item'>
                   { 
-                    imgprod.map(item  => {
-                      return <div key={item} className="prod-sm-image" > <img src={item} alt=""/></div>
+                    imgprod.map((item, index)  => {
+                      return index <= 3 ? <div key={item} className="prod-sm-image" > <img src={item} alt=""/></div> : <></>
                     })
                   }
                   </div>
@@ -76,10 +91,8 @@ class Product extends Component {
                 <div className='product-size'>
                   <span>size :</span>
                   <ul>
-                    <li>xs</li>
-                    <li>s</li>
-                    <li>m</li>
-                    <li>l</li>
+                    <li onClick={() => this.handleSizeSelect('S')}>s</li>
+                    <li onClick={() => this.handleSizeSelect('M')}>m</li>
                   </ul>
                 </div>
                 <div className='product-price'>
@@ -87,7 +100,7 @@ class Product extends Component {
                   <span>{ localStorage['currencySymbol'] } <b>{ prod.prices.find(p => p.currency.symbol === localStorage['currencySymbol'])?.amount }</b></span>
                 </div>
                 <div className='product-add-cart'>
-                  <button className='btn-add-to-cart' onClick={()=> this.addToCart(prod)}>add to cart</button>
+                  <button className='btn-add-to-cart' onClick={()=> this.addToCart(prod)} disabled={this.state.disableAddToCardBtn} >add to cart</button>
                 </div >
                 <h4 dangerouslySetInnerHTML={{__html : prod.description }}></h4>
                 </div>
