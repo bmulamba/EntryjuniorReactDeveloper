@@ -1,7 +1,19 @@
 @import "./../../Variables/Variables.scss";
 
+
+.cartegory-list {
+    width: 88%;
+    margin: 0 auto;
+
+    .categorName {
+        color: $black-color;
+        font-size: 25px;
+        padding: .6rem 0;
+    }
+}
 .product-section{
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: left;
     flex-wrap: wrap;
@@ -9,6 +21,8 @@
     margin: 0 auto;
     padding-top: 2rem;
 }
+
+
 
 .card {
     flex: 1 1 300px;
@@ -57,7 +71,7 @@
          }
          &:hover {
              color: $black-color;
-         }
+        }
     }
 
     .product-cart {

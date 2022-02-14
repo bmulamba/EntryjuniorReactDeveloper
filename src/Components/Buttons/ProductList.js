@@ -13,6 +13,8 @@ class ProductList extends React.Component {
         this.state = {
             categoryName : 'All'
         }
+
+        
         this.addToCart = this.addToCart.bind(this)
     }
 
@@ -56,10 +58,6 @@ class ProductList extends React.Component {
                 products = data.categories.filter(d => d.name === 'all')
             } 
         }
-        
-        // this.setState({
-        //     categoryName : selectedCategory
-        // })
 
         if (data.loading) {
             return (<div>Loading products</div>)
@@ -68,11 +66,13 @@ class ProductList extends React.Component {
         if(products.length > 0){
             prod = products[0].products;
             return (
-            <> 
-                <div>
-                    {selectedCategory}
+            <div> 
+                <div className="cartegory-list">
+                    <div className="categorName">
+                        {selectedCategory}
+                    </div>
                 </div>
-                <div>
+                <div  className="product-section">
                 {prod.map(item => {
                     
                 return(
@@ -96,7 +96,7 @@ class ProductList extends React.Component {
                 )
                 }
                 )}
-                </div>  </>)
+                </div>  </div>)
         }
     }
     }
@@ -105,13 +105,7 @@ class ProductList extends React.Component {
         
         return (
             <div>
-                {/* <div>
-                    {this.state.categoryName}
-                </div> */}
-                <div className="product-section">
-                    
-                    {this.displayProducts()} 
-                </div>
+                {this.displayProducts()} 
             </div>
         );
     }

@@ -1,11 +1,12 @@
 @import "./../../Variables/Variables.scss";
 
-.product-section {
-    width: 90%;
+.product-detail-section {
+    width: 89%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
 
     .product-item {
         display: flex;
@@ -13,23 +14,24 @@
         justify-content: space-between;
         height: 100vh;
         width: 100%;
+        flex: 1;
 
         .side-item {
             display: flex;
             flex-direction: column;
-            width: 8%;
-            // height: 10vh;
+            width: 9%;
 
             .prod-sm-image img{
                 width: 100%;
                 height: 15vh;
-                margin: 0 0 10px ;
+                margin: 0 0 10px 0;
             }
         }
 
         .product-image {
-            width: 45rem;
+            width: 58%;
             height: 70vh;
+
             span img {
                 width: 100%;
                 height: 80vh;
@@ -39,10 +41,16 @@
         .product-text{
             width: 29%;
 
-            h1, h2 {
+            h1 {
+                text-transform: capitalize;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+            h2 {
                 text-transform: capitalize;
                 font-weight: lighter;
-                margin-bottom: 15px;
+                margin-bottom: 5px;
             }
         }
     }
@@ -51,6 +59,7 @@
 .product-size {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     width: 90%;
     padding-top: 2rem;
 
@@ -72,12 +81,17 @@
             border : 1px solid black;
             width: 20%;
             text-align: center;
+            cursor: pointer;
             font-size: 20px;
             text-transform: uppercase;
         }
     }
 }
 
+.showPopmsg {
+    padding: .4rem 1rem;
+    background-color: rgb(165, 158, 139);
+}
 
 
 .product-price {
@@ -114,3 +128,9 @@ h4 {
 }
 
 
+@media screen and (max-width : 1570px) {
+    .product-item{
+        display: none;
+    }
+
+}

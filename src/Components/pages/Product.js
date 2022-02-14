@@ -11,18 +11,15 @@ class Product extends Component {
 
       this.state = {
         disableAddToCardBtn : true,
-        productSize : 'M'
+        productSize : 'M',
+        bgColor : ''
       }
-
-    // localStorage['productSize'] = 'M';
-    
+          
     this.addToCart = this.addToCart.bind(this)
   }
 
   addToCart(prod){
     prod['quantity'] = 1;
-
-    // console.log(this.state.productSize);
 
     if(localStorage['cardProduct'] == null){
         localStorage['cardProduct'] = JSON.stringify([prod]);
@@ -31,11 +28,13 @@ class Product extends Component {
         const index = products.findIndex((obj => obj.id === prod.id));
         if(index >= 0){
             products[index].quantity += 1
+            window.location.reload(false);
         }
         else{
             products.push(prod)
         }               
         localStorage['cardProduct'] = JSON.stringify(products);
+       
     } 
     
     let amount = 0;
@@ -47,13 +46,11 @@ class Product extends Component {
     localStorage['totalCardAmount'] = amount.toFixed(2);
     localStorage['productSize'] = this.state.productSize;
 
-    window.location.reload(false);
+ 
   }
 
   handleSizeSelect = (size) => {
-    this.setState({disableAddToCardBtn : false, productSize : size});
-      // localStorage['productSize'] = this.state.productSize;
-      // console.log(this.state.productSize);
+    this.setState({disableAddToCardBtn : false, productSize : size, bgColor : "blue"});
   }
 
 
@@ -68,12 +65,12 @@ class Product extends Component {
       if(data.product){
         prod = data.product;
 
-        console.log(prod.description);
+        // console.log(prod.description);
 
          var imgprod  = this.props.data.product.gallery
 
           return(
-            <div className='product-section'>
+            <div  className='product-detail-section'>
               <div className='product-item'>
                 <div className='side-item'>
                   { 
@@ -91,8 +88,10 @@ class Product extends Component {
                 <div className='product-size'>
                   <span>size :</span>
                   <ul>
-                    <li onClick={() => this.handleSizeSelect('S')}>s</li>
-                    <li onClick={() => this.handleSizeSelect('M')}>m</li>
+                    <li onClick={() => this.handleSizeSelect('XS')} >Xs</li>
+                    <li onClick={() => this.handleSizeSelect('S')} >s</li>
+                    <li onClick={() => this.handleSizeSelect('S')} >m</li>
+                    <li onClick={() => this.handleSizeSelect('L')} >l</li>
                   </ul>
                 </div>
                 <div className='product-price'>
@@ -113,7 +112,7 @@ class Product extends Component {
 
   render() {
     return <>
-    <div className='product-section'>
+    <div>
       {this.displaySingleProduct()}
     </div>
     </>;

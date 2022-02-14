@@ -13,6 +13,7 @@ class Navbar extends Component {
         this.state = {
             showCurrency : false,
             showCart : false,
+            productSize : 'M',
         };
 
         if (typeof localStorage['currencySymbol'] === 'undefined') {
@@ -24,38 +25,36 @@ class Navbar extends Component {
     displayCard(){
         const addedProducts = JSON.parse(localStorage['cardProduct']);
          return addedProducts.map((val) => {
-                return (
-                    <>
-                        <div className='car-item' key={val.id}>
-                                                     
-                            {/* <h4 className='item-prod-name'>{val.brand}</h4> */}
-                            <div className='cart-prod-items-show' >
+            return (
+                <>
+                    <div className='car-item' key={val.id}>
+                                                    
+                        <div className='cart-prod-items-show' >
 
-                                <div className='item-prod-belt-left'>
-                                    <h4 className='item-prod-name'>{val.name}</h4>
-                                    <h3 className='item-prod-names'>{val.brand}</h3>
-                                    <p className='car-price'>{localStorage['currencySymbol']} {val.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount * val.quantity}</p>
-                                    <span className='car-delete-btn' onClick={()=> this.removeItemFromCart(val.id)}>
-                                        <i className="fa fa-trash fa-lg"></i>
-                                    </span>
-                                    <div className='button-prod-cart'>
-                                        <button className='button-attribute'>S</button>
-                                        <button className='button-attribute'>M</button>
-                                    </div>
-                                </div>
-                                <div className='item-prod-belt-right'>
-                                    <div className='button-prod-quantity'>
-                                        <button className='button-quantity' onClick={() => this.addToCart(val)}>+</button>
-                                            <p className='cart-qty'>{val.quantity}</p>
-                                        <button className='button-quantity' onClick={() => this.minusToCart(val)} >-</button>
-                                    </div>
-                                    <img className='car-img' src={val.gallery[0]} alt=''/> 
+                            <div className='item-prod-belt-left'>
+                                <h4 className='item-prod-name'>{val.name}</h4>
+                                <h3 className='item-prod-names'>{val.brand}</h3>
+                                <p className='car-price'>{localStorage['currencySymbol']} {val.prices.find(p => p.currency.symbol === localStorage['currencySymbol']).amount * val.quantity}</p>
+                                <span className='car-delete-btn' onClick={()=> this.removeItemFromCart(val.id)}>
+                                    <i className="fa fa-trash fa-lg"></i>
+                                </span>
+                                <div className='button-prod-cart'>
+                                    
                                 </div>
                             </div>
+                            <div className='item-prod-belt-right'>
+                                <div className='button-prod-quantity'>
+                                    <button className='button-quantity' onClick={() => this.addToCart(val)}>+</button>
+                                        <p className='cart-qty'>{val.quantity}</p>
+                                    <button className='button-quantity' onClick={() => this.minusToCart(val)} >-</button>
+                                </div>
+                                <img className='car-img' src={val.gallery[0]} alt=''/> 
+                            </div>
                         </div>
-                    </>
-                )
-             })
+                    </div>
+                </>
+            )
+        })
     }
 
     displayCurrency(){
@@ -166,6 +165,9 @@ class Navbar extends Component {
                 <Link className='link-item' to="/clothes" onClick={() => { localStorage['category'] = 'Clothes' }}>CLOTHES</Link>
                 <Link className='link-item' to="/tech" onClick={() => { localStorage['category'] = 'Tech' }}>TECH</Link>
             </div>
+            <div>
+                <span><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+            </div>
             <div className='nav-right-block'>
               <Link className='currency-prod-label' to="#" onMouseEnter={()=> this.setState({showCurrency: true})} onMouseLeave={()=> this.setState({showCurrency: false})}>
                 {this.state.showCurrency ? 
@@ -182,7 +184,7 @@ class Navbar extends Component {
               <div className='nav-car-btn' to="#" onMouseEnter={()=> this.setState({showCart: true})} onMouseLeave={()=> this.setState({showCart: false})}>               
                 {this.state.showCart ?                
                 (
-                    <div className='card-main-container'>
+                    <div className='card-main-container' onClick={()=> this.setState({showCart: false})} >
                         <div className='card-container'>
                             {typeof localStorage['cardProduct'] === 'undefined' || JSON.parse(localStorage['cardProduct']).length === 0 ?
                             (
