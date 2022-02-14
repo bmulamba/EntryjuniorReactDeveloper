@@ -39,7 +39,8 @@ class Navbar extends Component {
                                     <i className="fa fa-trash fa-lg"></i>
                                 </span>
                                 <div className='button-prod-cart'>
-                                    
+                                    <button className='button-attribute' >S</button>
+                                    <button className='button-attribute' >M</button>                                    
                                 </div>
                             </div>
                             <div className='item-prod-belt-right'>
