@@ -1,9 +1,9 @@
 import react from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar/Navbar';
 import Product from './Components/pages/Product'
-import ProductList from './Components/Buttons/ProductList';
-import Cart from './Components/Buttons/Cart';
+import ProductList from './Components/ProductList/ProductList';
+import Cart from './Components/Cart/Cart';
 import './default.scss';
 // import Cart from ''
 

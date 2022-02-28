@@ -44,13 +44,13 @@ class Product extends Component {
     localStorage["productSize"] = this.state.productSize;
   }
 
-  handleSizeSelect = (size) => {
-    this.setState({
-      disableAddToCardBtn: false,
-      productSize: size,
-      bgColor: "blue",
-    });
-  };
+  // handleSizeSelect = (size) => {
+  //   this.setState({
+  //     disableAddToCardBtn: false,
+  //     productSize: size,
+  //     bgColor: "blue",
+  //   });
+  // };
 
   displaySingleProduct() {
     var data = this.props.data;

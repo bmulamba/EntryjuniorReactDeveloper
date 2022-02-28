@@ -4,19 +4,19 @@ import "./Cart.scss";
 export default class Cart extends Component {
   cartdetails() {
     var products = JSON.parse(localStorage["cardProduct"]);
-    console.log(localStorage["productSize"]);
+    // console.log(localStorage["productSize"]);
     return products.map((product) => {
       return (
         <div>
           <div className="cart-description">
             <div className="cart-desc-belt">
-              <h1>{product.name}</h1>
-              <h2>{product.brand}</h2>
-              <h2>
+              <h2 id="product-name">{product.name}</h2>
+              <h2 id="product-type">{product.brand}</h2>
+              <h2 id="product-type">
                 {localStorage["currencySymbol"]}{" "}
                 {product.prices.find(
                   (p) => p.currency.symbol === localStorage["currencySymbol"]
-                ).amount * product.quantity}
+                ).amount}
               </h2>
               <div className="cart-size">
                 <span>{localStorage["productSize"]}</span>
@@ -26,12 +26,19 @@ export default class Cart extends Component {
               <div className="cart-mini-add">
                 <button onClick={() => this.addToCart(product)}>+</button>
                 <h4 className="cart-quantity">{product.quantity}</h4>
-                <button onClick={() => this.addToCart(product)}>-</button>
+                <button onClick={() => this.minusToCart(product)}>-</button>
               </div>
               <div className="cart-img">
                 <img src={product.gallery[0]} alt="" />
               </div>
             </div>
+          </div>
+          <div className="cart-total">
+            <h3>Total</h3> {" "}
+            <div className="total-side">
+              {localStorage["currencySymbol"]}{" "}
+              {localStorage["totalCardAmount"]}
+            </div>             
           </div>
         </div>
       );

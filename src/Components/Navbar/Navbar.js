@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import { currencyProduct } from "./../GraphQl/Queries";
+import { currencyProduct } from "../../GraphQl/Queries";
 import "font-awesome/css/font-awesome.min.css";
 
 class Navbar extends Component {
@@ -19,7 +19,7 @@ class Navbar extends Component {
     }
   }
 
-  displayCard() {
+  displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
     return addedProducts.map((val) => {
       return (
@@ -33,7 +33,7 @@ class Navbar extends Component {
                   {localStorage["currencySymbol"]}{" "}
                   {val.prices.find(
                     (p) => p.currency.symbol === localStorage["currencySymbol"]
-                  ).amount * val.quantity}
+                  ).amount}
                 </p>
                 <span
                   className="car-delete-btn"
@@ -185,7 +185,7 @@ class Navbar extends Component {
         <div className="nav-bar">
           <div className="link-navbar">
             <Link
-              className="link-item"
+              className="link-item "
               to="/all"
               onClick={() => {
                 localStorage["category"] = "All";
@@ -256,10 +256,11 @@ class Navbar extends Component {
                   className="card-main-container"
                   onClick={() => this.setState({ showCart: false })}
                 >
-                  <div className="card-container">
+                  <div className="card-container" onClick={() => this.setState({ showCart: true })}>
                     {typeof localStorage["cardProduct"] === "undefined" ||
                     JSON.parse(localStorage["cardProduct"]).length === 0 ? (
                       <div>
+                        
                         <h5>Your cart is empty.</h5>
                       </div>
                     ) : (

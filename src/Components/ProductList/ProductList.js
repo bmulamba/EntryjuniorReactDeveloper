@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
 import { getCategories } from "../../GraphQl/Queries";
-import "./../Navbar.js";
+import "../Navbar/Navbar.js";
 import "./ProductList.scss";
 
 class ProductList extends React.Component {
@@ -11,6 +11,7 @@ class ProductList extends React.Component {
 
     this.state = {
       categoryName: "All",
+      isAvailble : false
     };
 
     this.addToCart = this.addToCart.bind(this);
@@ -42,7 +43,7 @@ class ProductList extends React.Component {
     localStorage["totalCardAmount"] = amount.toFixed(2);
   }
 
-  displayProducts() {
+  displayProducts = () => {
     var data = this.props.data;
     const selectedCategory = localStorage["category"];
     var products = [];
@@ -68,6 +69,7 @@ class ProductList extends React.Component {
               <div className="categorName">{selectedCategory}</div>
             </div>
             <div className="product-section">
+              
               {prod.map((item) => {
                 return (
                   <div key={item.id}>
@@ -79,6 +81,7 @@ class ProductList extends React.Component {
                       }}
                     >
                       <div className="card">
+                      {/* <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div> */}
                         <div className="card-image">
                           <img
                             className="img-card"

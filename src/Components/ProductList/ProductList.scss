@@ -11,6 +11,7 @@
   }
 }
 .product-section {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -19,6 +20,15 @@
   width: 90%;
   margin: 0 auto;
   padding-top: 2rem;
+
+
+  // width: 80vw;
+  // width: 90%;
+  // margin: 0 auto;
+  // display: grid;
+  // grid-template-columns: 1fr 1fr 1fr;
+  // grid-gap: 10px;
+
 }
 
 .card {
@@ -28,6 +38,24 @@
   overflow: hidden;
   margin: 15px;
   padding: 5px;
+
+  .outOfStockBadge {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(199, 199, 199, 0.5);
+
+    h2 {
+      color: gray;
+    }
+  }
 
   .card-image {
     padding: 8px;
@@ -43,7 +71,7 @@
     position: relative;
     box-shadow: 4px 4px 7px 4px rgba(199, 199, 199, 0.5);
     transform: scale(1.01);
-    transition: all ease-in-out 300ms;
+    transition: all ease 200ms;
 
     .product-cart {
       position: absolute;
@@ -55,8 +83,8 @@
       padding: 1rem;
       text-align: center;
       border-radius: 50%;
-      right: 1.72rem;
-      top: 73%;
+      right: 2rem;
+      top: 76%;
       cursor: pointer;
     }
   }

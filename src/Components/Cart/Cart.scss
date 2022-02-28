@@ -1,0 +1,98 @@
+@import "./../../Variables/Variables.scss";
+
+.product-in-cart {
+  background-color: none;
+
+  .cart-container {
+    width: 88%;
+    margin: 0 auto;
+
+    .title {
+      text-transform: capitalize;
+      padding: 1rem 0;
+    }
+
+    .cart-description {
+      display: flex;
+      height: 27vh;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      border-top: 1px solid rgb(196, 195, 195);
+      padding: 10px 0;
+
+      .cart-desc-belt {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+        // border-top: 1px solid gray;
+        // padding: 10px 0;
+
+        #product-name {
+          text-transform: capitalize;
+          margin-bottom: 6px;
+          color: grey;
+        }
+
+        #product-type {
+          text-transform: capitalize;
+          font-weight: lighter;
+          color: rgb(104, 103, 103);
+        }
+
+        .cart-size {
+          display: flex;
+
+          span {
+            text-transform: capitalize;
+            padding: .7rem;
+            margin: 1rem 20px 20px 0;
+            border: 1px solid rgb(128, 128, 128);
+          }
+        }
+      }
+
+      .cart-mini-imag {
+        display: flex;
+        flex-direction: row;
+
+        .cart-mini-add {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          button {
+            padding: .6rem;
+            border: 1px solid grey;
+            margin: 0 1rem;
+            font-size: 20px;
+            cursor: pointer;
+          }
+
+          .cart-quantity {
+            padding: 1.85rem 0;
+            font-size: 20px;
+          }
+        }
+
+        .cart-img img {
+          width: 12vw;
+          height: 24vh;
+        }
+      }
+    }
+    .cart-total {
+      border-top: 1px solid rgb(128, 128, 128);
+      display: flex;
+      width: 100%;
+      padding-top: 1rem;
+      justify-content: space-between;
+
+      .total-side{
+          font-weight: 500;
+          font-size: 22px;
+      }
+    }
+  }
+}
