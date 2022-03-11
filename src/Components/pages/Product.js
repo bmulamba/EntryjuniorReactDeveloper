@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
+import parse from "html-react-parser";
 import { singleProduct } from "../../GraphQl/Queries";
 import "./Product.scss";
 
@@ -94,10 +95,7 @@ class Product extends Component {
                 <div className="product-size">
                   <span>size :</span>
                   <ul>
-                    <li onClick={() => this.handleSizeSelect("XS")}>Xs</li>
-                    <li onClick={() => this.handleSizeSelect("S")}>s</li>
-                    <li onClick={() => this.handleSizeSelect("S")}>m</li>
-                    <li onClick={() => this.handleSizeSelect("L")}>l</li>
+                    {prod.attributes.name}
                   </ul>
                 </div>
                 <div className="product-price">
@@ -123,7 +121,7 @@ class Product extends Component {
                     add to cart
                   </button>
                 </div>
-                <h4 dangerouslySetInnerHTML={{ __html: prod.description }}></h4>
+                <p >{parse(prod.description)}</p>
               </div>
             </div>
           </div>

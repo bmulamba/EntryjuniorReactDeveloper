@@ -252,16 +252,13 @@ class Navbar extends Component {
               onMouseLeave={() => this.setState({ showCart: false })}
             >
               {this.state.showCart ? (
-                <div
-                  className="card-main-container"
-                  onClick={() => this.setState({ showCart: false })}
-                >
-                  <div className="card-container" onClick={() => this.setState({ showCart: true })}>
+                <div className="card-main-container"  >
+                  <div className="card-container" >
                     {typeof localStorage["cardProduct"] === "undefined" ||
                     JSON.parse(localStorage["cardProduct"]).length === 0 ? (
-                      <div>
-                        
-                        <h5>Your cart is empty.</h5>
+                      <div className="emptyCard">
+                        <h4>Your cart is empty.</h4>
+                        <button className="btn-close-cart" onClick={() => this.setState({ showCart: false })}>CLOSE</button>
                       </div>
                     ) : (
                       <div className="card-content-container-full">
@@ -277,7 +274,7 @@ class Navbar extends Component {
                           </div>
                           <h4 className="car-total">
                             Total amount:{" "}
-                            <span>
+                            <span >
                               {localStorage["currencySymbol"]}{" "}
                               {localStorage["totalCardAmount"]}
                             </span>

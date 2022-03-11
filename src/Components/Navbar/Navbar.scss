@@ -47,6 +47,7 @@
       .cur-dropdown {
         display: flex;
         top: 4rem;
+        width : 5rem;
         position: absolute;
         z-index: 3;
 
@@ -66,6 +67,7 @@
           .cur-options {
             justify-content: space-between;
             display: flex;
+            width : 5rem;
             color: $black-color;
             margin: 7px;
             padding: 0.5rem 0;
@@ -73,7 +75,6 @@
             &:hover,
             &:focus {
               color: $black-color;
-              background-color: rgba(228, 227, 227, 0.5);
             }
           }
         }
@@ -99,13 +100,30 @@
       top: -0.8rem;
       right: 5.5%;
       padding: 10px;
+      z-index: 100;
+    }
+
+    .emptyCard {
+      position: absolute;
+      padding: 2rem;
+      background-color: $white-color;
+      right: -1rem;
+
+      .btn-close-cart {
+        background-color: red;
+        color: $white-color;
+        text-align: right;
+        margin: .3rem 0;
+        padding: 10px;
+        border: none;
+      }
     }
 
     .card-content-container-full {
       width: 100%;
       background-color: $white-color;
       padding: 10px;
-      opacity: 1000;
+      // opacity: 1000;
 
       .cart-qty-heard {
         margin: 1.5rem 0.8rem;
@@ -200,7 +218,6 @@
   position: absolute;
   left: 5.8rem;
   top: 5rem;
-  position: absolute;
   z-index: 3;
 }
 
@@ -237,6 +254,7 @@
 
   span {
     float: right;
+    font-weight: bold;
   }
 }
 
@@ -259,5 +277,5 @@
   top: 1.2rem;
   border-radius: 50%;
   color: $white-color;
-  right: 5.5%;
+  right: -1%;
 }
