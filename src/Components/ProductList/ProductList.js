@@ -11,11 +11,12 @@ class ProductList extends React.Component {
 
     this.state = {
       categoryName: "All",
-      isAvailble : false
+      isShow : false
     };
 
     this.addToCart = this.addToCart.bind(this);
   }
+
 
   addToCart(item) {
     item["quantity"] = 1;
@@ -81,7 +82,7 @@ class ProductList extends React.Component {
                       }}
                     >
                       <div className="card">
-                      {/* <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div> */}
+                      { !item.inStock && <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div>}
                         <div className="card-image">
                           <img
                             className="img-card"
@@ -105,13 +106,23 @@ class ProductList extends React.Component {
                             </b>
                           </h3>
                         </div>
-                        <Link
+                        { item.inStock ?
+                        <button type="button"
+                          onClick={() => {this.isShow = true}}
                           to="#"
-                          className="product-cart"
-                          onClick={() => this.addToCart(item)}
+                          className="product-cart" 
+                          // onClick={() => this.addToCart(item)}
                         >
                           <i className="fa fa-shopping-cart"></i>
-                        </Link>
+                        </button>
+                        : 
+                        <Link
+                        to="#"
+                        className="product-cart bg-secondary" 
+                      >
+                        <i className="fa fa-shopping-cart"></i>
+                      </Link>
+                        }
                       </div>
                     </Link>
                   </div>
@@ -125,7 +136,10 @@ class ProductList extends React.Component {
   }
 
   render() {
-    return <div>{this.displayProducts()}</div>;
+    return <div>
+        {this.displayProducts()}
+        {/* {this.state.isShow && <Modal/>} */}
+      </div>;
   }
 }
 

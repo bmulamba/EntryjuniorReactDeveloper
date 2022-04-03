@@ -7,14 +7,28 @@ export const getCategories = gql`
     name
     products{
       id
-      name      
+      name
+      inStock   
       gallery
+      description
+      category
+      brand
       prices{
         currency{
           label
           symbol
         }
         amount
+      }
+      attributes{
+        id
+        name
+        type
+        items{
+          displayValue
+          value
+          id
+        }
       }
     }
   }    

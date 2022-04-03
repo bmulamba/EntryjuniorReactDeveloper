@@ -7,11 +7,11 @@ export default class Cart extends Component {
     // console.log(localStorage["productSize"]);
     return products.map((product) => {
       return (
-        <div>
+        <div key={product.id}>
           <div className="cart-description">
             <div className="cart-desc-belt">
               <h2 id="product-name">{product.name}</h2>
-              <h2 id="product-type">{product.brand}</h2>
+              <h2 id="product-type py-5">{product.brand}</h2>
               <h2 id="product-type">
                 {localStorage["currencySymbol"]}{" "}
                 {product.prices.find(

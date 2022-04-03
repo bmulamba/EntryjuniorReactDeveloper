@@ -6,6 +6,7 @@ import { BrowserRouter} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import  ApolloClient  from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',

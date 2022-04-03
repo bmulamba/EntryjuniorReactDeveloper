@@ -14,6 +14,7 @@ class App extends react.Component {
     <div >
       <Navbar />
       {/* <ProductList /> */}
+
       <Routes>
         <Route path="/" element = { <ProductList /> } />
         <Route path="/all" element = { <ProductList /> } />

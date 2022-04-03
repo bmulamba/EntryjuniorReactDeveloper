@@ -11,7 +11,6 @@ class Navbar extends Component {
     this.state = {
       showCurrency: false,
       showCart: false,
-      productSize: "M",
     };
 
     if (typeof localStorage["currencySymbol"] === "undefined") {
@@ -22,6 +21,7 @@ class Navbar extends Component {
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
     return addedProducts.map((val) => {
+      // console.log(val.brand);
       return (
         <>
           <div className="car-item" key={val.id}>
@@ -214,7 +214,7 @@ class Navbar extends Component {
           </div>
           <div>
             <span>
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              <i className="fa fa-shopping-bag" aria-hidden="true"></i>
             </span>
           </div>
           <div className="nav-right-block">

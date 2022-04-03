@@ -10,6 +10,7 @@ class Product extends Component {
 
     this.state = {
       disableAddToCardBtn: true,
+      
       productSize: "M",
       bgColor: "",
     };
