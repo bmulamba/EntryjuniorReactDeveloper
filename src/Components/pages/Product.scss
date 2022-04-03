@@ -63,29 +63,33 @@
     width: 90%;
     padding-top: 2rem;
 
+    .attribute-item {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .item-attribute {
+        padding: 10px;
+        border: 1px solid rgb(37, 27, 27);
+        margin: 10px;
+    }
+
     span {
         text-transform: uppercase;
         font-weight: bolder;
         padding-bottom: 10px;
-    }
 
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-
-        li {
-            list-style: none;
-            padding: .8rem;
-            border : 1px solid black;
-            width: 20%;
-            text-align: center;
-            cursor: pointer;
+        button {
+            padding: 8px;
+            margin: 4px;
+            min-width: 50px;
+            min-height: 50px;
             font-size: 20px;
-            text-transform: uppercase;
+            border: 1px solid rgb(51, 50, 50);
         }
     }
+
+
 }
 
 .showPopmsg {

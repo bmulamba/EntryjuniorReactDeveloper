@@ -9,10 +9,8 @@ class Product extends Component {
     super(props);
 
     this.state = {
-      disableAddToCardBtn: true,
-      
-      productSize: "M",
       bgColor: "",
+      imgIndex : 0
     };
 
     this.addToCart = this.addToCart.bind(this);
@@ -65,9 +63,16 @@ class Product extends Component {
       if (data.product) {
         prod = data.product;
 
-        // console.log(prod.description);
+        // console.log(prod);
 
         var imgprod = this.props.data.product.gallery;
+
+        var attrib = this.props.data.product.attributes;
+
+        // var attr = this.props.data.product.attributes.items
+
+        // console.log(attrib[0].id);
+        console.log(prod.inStock);
 
         return (
           <div className="product-detail-section">
@@ -77,7 +82,10 @@ class Product extends Component {
                   return index <= 3 ? (
                     <div key={item} className="prod-sm-image">
                       {" "}
-                      <img src={item} alt="" />
+                      <img src={item}
+                       onClick = {() => this.setState({imgIndex : index})}
+                       alt="" />
+                      
                     </div>
                   ) : (
                     <></>
@@ -87,17 +95,40 @@ class Product extends Component {
               <div className="product-image">
                 <span>
                   {" "}
-                  <img src={prod.gallery[0]} alt="{item.id}" />{" "}
+                  <img src={prod.gallery[this.state.imgIndex]} alt="{item.id}" />{" "}
                 </span>
               </div>
+
               <div className="product-text">
                 <h1>{prod.name}</h1>
                 <h2>{prod.brand}</h2>
                 <div className="product-size">
-                  <span>size :</span>
-                  <ul>
-                    {prod.attributes.name}
-                  </ul>
+                  {
+                    // attrib > 0 &&
+                    attrib.map((attribute) => (
+                      <div key={"type" + attribute.id}>
+                        <p className="attribute-item">{attribute.id}</p>
+
+                        <span>
+                          {
+                            attribute.items.map((item) =>
+                              item.value[0] === "#" ? (
+                                <button
+                                  value={item.displayValue}
+                                  style={{ backgroundColor: item.value }}
+                                ></button>
+                              ) : (
+                                <button value={item.value}>
+                                  {" "}
+                                  {item.value}
+                                </button>
+                              )
+                            )
+                          }
+                        </span>
+                      </div>
+                    ))
+                  }
                 </div>
                 <div className="product-price">
                   <span>price : </span>
@@ -117,12 +148,12 @@ class Product extends Component {
                   <button
                     className="btn-add-to-cart"
                     onClick={() => this.addToCart(prod)}
-                    disabled={this.state.disableAddToCardBtn}
+                    disabled={!prod.inStock}
                   >
-                    add to cart
+                    {!prod.inStock ? "add to cart" : "out of stock"}
                   </button>
                 </div>
-                <p >{parse(prod.description)}</p>
+                <p>{parse(prod.description)}</p>
               </div>
             </div>
           </div>
