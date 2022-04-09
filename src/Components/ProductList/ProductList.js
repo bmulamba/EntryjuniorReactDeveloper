@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
+import { Link } from "react-router-dom";
 import { getCategories } from "../../GraphQl/Queries";
 import "../Navbar/Navbar.js";
 import Modal from "./ModalProduct";
@@ -88,13 +89,13 @@ class ProductList extends React.Component {
 
                 return (
                   <div key={item.id}>
-                    {/* <Link
+                    <Link
                       className="pro-card"
                       to={`/product/${item.id}`}
                       onClick={() => {
                         localStorage["selectedProductId"] = item.id;
                       }}
-                    > */}
+                    >
                       <div className="card">
                       { !item.inStock && <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div>}
                         <div className="card-image">
@@ -139,7 +140,7 @@ class ProductList extends React.Component {
                       </button>
                         {/* } */}
                       </div>
-                    {/* </Link> */}
+                    </Link>
                   </div>
                 );
               })}
