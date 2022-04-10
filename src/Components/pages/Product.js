@@ -9,7 +9,6 @@ class Product extends Component {
     super(props);
 
     this.state = {
-      bgColor: "",
       imgIndex : 0
     };
 
@@ -44,13 +43,6 @@ class Product extends Component {
     localStorage["productSize"] = this.state.productSize;
   }
 
-  // handleSizeSelect = (size) => {
-  //   this.setState({
-  //     disableAddToCardBtn: false,
-  //     productSize: size,
-  //     bgColor: "blue",
-  //   });
-  // };
 
   displaySingleProduct() {
     var data = this.props.data;
@@ -72,7 +64,7 @@ class Product extends Component {
         // var attr = this.props.data.product.attributes.items
 
         // console.log(attrib[0].id);
-        console.log(prod.inStock);
+        // console.log(prod.inStock);
 
         return (
           <div className="product-detail-section">
@@ -85,7 +77,6 @@ class Product extends Component {
                       <img src={item}
                        onClick = {() => this.setState({imgIndex : index})}
                        alt="" />
-                      
                     </div>
                   ) : (
                     <></>
@@ -150,7 +141,7 @@ class Product extends Component {
                     onClick={() => this.addToCart(prod)}
                     disabled={!prod.inStock}
                   >
-                    {!prod.inStock ? "add to cart" : "out of stock"}
+                    {prod.inStock ? "add to cart" : "out of stock"}
                   </button>
                 </div>
                 <p>{parse(prod.description)}</p>

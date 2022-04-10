@@ -121,24 +121,23 @@ class ProductList extends React.Component {
                             </b>
                           </h3>
                         </div>
-                        {/* { item.inStock ?
+                        { item.inStock ?
                         <button type="button"
-                          onClick={() => {this.isShow = true}}
                           to="#"
                           className="product-cart" 
                           onClick={() => this.addToCart(item)}
                         >
                           <i className="fa fa-shopping-cart"></i>
                         </button>
-                        :  */}
+                        : 
                         <button
-                        // to="#"
+                        to="#"
                         className="product-cart" 
                         onClick={this.handleVisibilty}
                       >
                         <i className="fa fa-shopping-cart"></i>
                       </button>
-                        {/* } */}
+                        }
                       </div>
                     </Link>
                   </div>

@@ -1,8 +1,9 @@
 @import "./../../Variables/Variables.scss";
 
 .cartegory-list {
-  width: 88%;
+  width: 81%;
   margin: 0 auto;
+  padding-bottom: 1rem;
 
   .categorName {
     color: $black-color;
@@ -12,17 +13,17 @@
 }
 .product-section {
   position: relative;
-  width: 80vw;
-  margin: 0 auto;
+  width: 81%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap:15px;
+  margin: 0 auto;
 }
 
 .card {
   display: flex;
-  width : 400px;
-  height: 440px;
+  width : 440px;
+  height: 460px;
   flex-direction: column;
   background-color: rgb(239, 241, 243);
   border: 1px solid grey;
@@ -58,7 +59,7 @@
     text-align: center;
 
     .img-card {
-      height: 300px;
+      height: 320px;
       width: 100%;
     }
   }
@@ -80,7 +81,7 @@
       text-align: center;
       border-radius: 50%;
       right: 2rem;
-      top: 76%;
+      top: 66%;
       cursor: pointer;
     }
   }
@@ -90,9 +91,10 @@
     .cart-name,
     .cart-price {
       margin: 10px 0;
+      color: $gray-color;
     }
     &:hover {
-      color: $black-color;
+      color: $gray-color;
     }
   }
 

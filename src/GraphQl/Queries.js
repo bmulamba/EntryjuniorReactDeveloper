@@ -50,6 +50,7 @@ export const singleProduct = gql`
     product(id: $id){
       id
       name
+      inStock
       gallery
       description
       attributes{
