@@ -272,10 +272,11 @@
 
 .cart-quantities {
   position: absolute;
-  padding: 0.5rem;
+  padding: 0.3rem;
   background-color: $black-color;
   top: 1.2rem;
   border-radius: 50%;
+  font-size: 12px;
   color: $white-color;
   right: -1%;
 }

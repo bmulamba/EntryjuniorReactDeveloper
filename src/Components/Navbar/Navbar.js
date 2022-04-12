@@ -4,6 +4,7 @@ import "./Navbar.scss";
 import { Link } from "react-router-dom";
 import { currencyProduct } from "../../GraphQl/Queries";
 import "font-awesome/css/font-awesome.min.css";
+import MiniCart from "./MiniCart";
 
 class Navbar extends Component {
   constructor(props) {
@@ -11,11 +12,20 @@ class Navbar extends Component {
     this.state = {
       showCurrency: false,
       showCart: false,
+      modaleVisibility : false
     };
 
     if (typeof localStorage["currencySymbol"] === "undefined") {
       localStorage["currencySymbol"] = "$";
     }
+  }
+
+  handleVisibilty = () => {
+    this.setState({modaleVisibility : true})
+  }
+
+  hideModal = () => {
+    this.setState({modaleVisibility : false})
   }
 
   displayCard = () => {
@@ -43,7 +53,6 @@ class Navbar extends Component {
                 </span>
                 <div className="button-prod-cart">
                   <button className="button-attribute">S</button>
-                  <button className="button-attribute">M</button>
                 </div>
               </div>
               <div className="item-prod-belt-right">
@@ -248,55 +257,9 @@ class Navbar extends Component {
             <div
               className="nav-car-btn"
               to="#"
-              onMouseEnter={() => this.setState({ showCart: true })}
-              onMouseLeave={() => this.setState({ showCart: false })}
+              onMouseEnter={this.handleVisibilty}
+              // onMouseLeave={() => this.setState({ showCart: false })}
             >
-              {this.state.showCart ? (
-                <div className="card-main-container"  >
-                  <div className="card-container" >
-                    {typeof localStorage["cardProduct"] === "undefined" ||
-                    JSON.parse(localStorage["cardProduct"]).length === 0 ? (
-                      <div className="emptyCard">
-                        <h4>Your cart is empty.</h4>
-                        <button className="btn-close-cart" onClick={() => this.setState({ showCart: false })}>CLOSE</button>
-                      </div>
-                    ) : (
-                      <div className="card-content-container-full">
-                        <h5 className="cart-qty-heard">
-                          My Bag,{" "}
-                          {typeof localStorage["cardProduct"] === "undefined" ||
-                            JSON.parse(localStorage["cardProduct"]).length}{" "}
-                          items
-                        </h5>
-                        <div className="cart-content-container">
-                          <div className="card-content">
-                            {this.displayCard()}
-                          </div>
-                          <h4 className="car-total">
-                            Total amount:{" "}
-                            <span >
-                              {localStorage["currencySymbol"]}{" "}
-                              {localStorage["totalCardAmount"]}
-                            </span>
-                          </h4>
-                          <div className="item-prod-button">
-                            <Link className="car-btn" to="/cart">
-                              {" "}
-                              Checkout{" "}
-                            </Link>
-                            <Link className="car-btn-cart" to="/cart">
-                              {" "}
-                              Cart{" "}
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )}
               <span>
                 <i className="fa fa-shopping-cart fa-2x"></i>
               </span>
@@ -307,6 +270,10 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
+        <MiniCart
+          handleVisibilty={this.state.modaleVisibility}
+          handleClose = {this.hideModal}
+        />
       </div>
     );
   }

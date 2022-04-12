@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { getCategories } from "../../GraphQl/Queries";
 import "../Navbar/Navbar.js";
 import Modal from "./ModalProduct";
@@ -12,7 +12,7 @@ class ProductList extends React.Component {
 
     this.state = {
       categoryName: "All",
-      modalVisibility : false
+      modalVisibility: false,
     };
 
     this.addToCart = this.addToCart.bind(this);
@@ -22,7 +22,6 @@ class ProductList extends React.Component {
 
   handleVisibilty(){
     this.setState({modalVisibility : true})
-    // console.log(this.state.modalVsibility);
   }
 
   hideModal(){
@@ -89,13 +88,13 @@ class ProductList extends React.Component {
 
                 return (
                   <div key={item.id}>
-                    <Link
+                    {/* <Link
                       className="pro-card"
                       to={`/product/${item.id}`}
                       onClick={() => {
                         localStorage["selectedProductId"] = item.id;
                       }}
-                    >
+                    > */}
                       <div className="card">
                       { !item.inStock && <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div>}
                         <div className="card-image">
@@ -106,8 +105,8 @@ class ProductList extends React.Component {
                           />
                         </div>
                         <div className="card-info">
-                          <h3 className="cart-name">{item.name}</h3>
-                          <h3 className="cart-price">
+                          <h4 className="cart-name">{item.name}</h4>
+                          <h4 className="cart-price">
                             {" "}
                             {localStorage["currencySymbol"]}{" "}
                             <b>
@@ -119,27 +118,17 @@ class ProductList extends React.Component {
                                 ).amount
                               }
                             </b>
-                          </h3>
+                          </h4>
                         </div>
-                        { item.inStock ?
                         <button type="button"
                           to="#"
                           className="product-cart" 
-                          onClick={() => this.addToCart(item)}
+                          onClick={this.handleVisibilty}
                         >
                           <i className="fa fa-shopping-cart"></i>
                         </button>
-                        : 
-                        <button
-                        to="#"
-                        className="product-cart" 
-                        onClick={this.handleVisibilty}
-                      >
-                        <i className="fa fa-shopping-cart"></i>
-                      </button>
-                        }
                       </div>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 );
               })}
@@ -154,9 +143,9 @@ class ProductList extends React.Component {
     return <div>
         {this.displayProducts()}
         <Modal 
-        openModal={this.state.modalVisibility} 
-        handleClose={this.hideModal}
-        // size = {this.item.attributes}
+          handleVisibilty={this.state.modalVisibility} 
+          handleClose={this.hideModal}
+          // prodItem = {this.products}
         />
       </div>;
   }

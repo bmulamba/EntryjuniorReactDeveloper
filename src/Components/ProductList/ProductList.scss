@@ -88,10 +88,14 @@
 
   .card-info {
     padding: 10px;
-    .cart-name,
-    .cart-price {
+    .cart-name {
       margin: 10px 0;
       color: $gray-color;
+    }
+    .cart-price {
+      margin: 10px 0;
+      color: $black-color;
+      
     }
     &:hover {
       color: $gray-color;

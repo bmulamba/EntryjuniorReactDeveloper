@@ -3,17 +3,33 @@ import "./Modal.scss"
 
 export default class Modal extends Component {
   render() {
-    const showHideModal  = this.props.openModal ? "modal display-block" : "modal display-none";
-    console.log(this.props.size);
+    console.log(this.props);
     return(
-      <div className={showHideModal}>
-        <section className="modal-main">
-          
-            <h1> this.props.size.map</h1>
-            
-          
-        </section>
-        <button type="button" onClick={this.props.handleClose}>Close</button>
+      <div >
+        {this.props.handleVisibilty ? (
+          <div className="modalBg" >
+            <button className="btn-cls" onClick={this.props.handleClose}>&times;</button>
+            <div className="modal-body">        
+              <form>
+                <h1>
+                  lorem le grand de text pour le developeur
+                </h1>
+                <div className="btn-modal">
+                  <button 
+                    className="btn-add-to-cart"
+                        // onClick={() => this.addToCart(prod)}
+                        // disabled={!prod.inStock}
+                      >
+                        {/* {this.props.prodItem.inStock ? "add to cart" : "out of stock"} */}
+                    bdbdbd
+                  </button>
+                  <button className="close-btn" onClick={this.props.handleClose}>
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>) : <></>}
       </div>
     )
   }
