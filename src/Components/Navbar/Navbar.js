@@ -12,7 +12,8 @@ class Navbar extends Component {
     this.state = {
       showCurrency: false,
       showCart: false,
-      modaleVisibility : false
+      modaleVisibility : false,
+      cardProductsQuantity : 0
     };
 
     if (typeof localStorage["currencySymbol"] === "undefined") {
@@ -130,6 +131,7 @@ class Navbar extends Component {
         products[index].quantity += 1;
       } else {
         products.push(val);
+        this.setState({cardProductsQuantity : products.length})
       }
       localStorage["cardProduct"] = JSON.stringify(products);
     }
@@ -184,11 +186,16 @@ class Navbar extends Component {
         break;
       }
     }
+    // this.setState({cardProductsQuantity : products.length})
     localStorage.setItem("cardProduct", JSON.stringify(products));
     localStorage["totalCardAmount"] = amount.toFixed(2);
   }
+  
 
   render() {
+    // console.log(localStorage.length);
+
+    
     return (
       <div className="header-nav">
         <div className="nav-bar">
@@ -257,7 +264,7 @@ class Navbar extends Component {
             <div
               className="nav-car-btn"
               to="#"
-              onMouseEnter={this.handleVisibilty}
+              onClick={this.handleVisibilty}
               // onMouseLeave={() => this.setState({ showCart: false })}
             >
               <span>
@@ -265,7 +272,7 @@ class Navbar extends Component {
               </span>
               <p className="cart-quantities">
                 {typeof localStorage["cardProduct"] === "undefined" ||
-                  JSON.parse(localStorage["cardProduct"]).length}{" "}
+                  JSON.parse(localStorage["cardProduct"]).length} {" "}
               </p>
             </div>
           </div>
@@ -273,6 +280,7 @@ class Navbar extends Component {
         <MiniCart
           handleVisibilty={this.state.modaleVisibility}
           handleClose = {this.hideModal}
+          // showCart = {this.state.showCart}
         />
       </div>
     );

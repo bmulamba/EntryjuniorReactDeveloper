@@ -47,6 +47,8 @@ class Product extends Component {
   displaySingleProduct() {
     var data = this.props.data;
 
+    // console.log(data);
+
     if (data.loading) {
       return <div>Loading products</div>;
     } else {
@@ -54,9 +56,7 @@ class Product extends Component {
 
       if (data.product) {
         prod = data.product;
-
-        // console.log(prod);
-
+      
         var imgprod = this.props.data.product.gallery;
 
         var attrib = this.props.data.product.attributes;
@@ -70,7 +70,7 @@ class Product extends Component {
           <div className="product-detail-section">
             <div className="product-item">
               <div className="side-item">
-                {imgprod.map((item, index) => {
+                { imgprod.map((item, index) => {
                   return index <= 3 ? (
                     <div key={item} className="prod-sm-image">
                       {" "}
@@ -79,7 +79,7 @@ class Product extends Component {
                        alt="" />
                     </div>
                   ) : (
-                    <></>
+                    <div key={item}></div>
                   );
                 })}
               </div>
@@ -97,19 +97,19 @@ class Product extends Component {
                   {
                     // attrib > 0 &&
                     attrib.map((attribute) => (
-                      <div key={"type" + attribute.id}>
+                      <div key={ prod.id + attribute.id}>
                         <p className="attribute-item">{attribute.id}</p>
-
                         <span>
                           {
                             attribute.items.map((item) =>
                               item.value[0] === "#" ? (
                                 <button
+                                key={item.value}
                                   value={item.displayValue}
                                   style={{ backgroundColor: item.value }}
                                 ></button>
                               ) : (
-                                <button value={item.value}>
+                                <button value={item.value}   key={item.value}>
                                   {" "}
                                   {item.value}
                                 </button>
@@ -144,7 +144,7 @@ class Product extends Component {
                     {prod.inStock ? "add to cart" : "out of stock"}
                   </button>
                 </div>
-                <p>{parse(prod.description)}</p>
+                <div>{parse(prod.description)}</div>
               </div>
             </div>
           </div>
@@ -154,6 +154,7 @@ class Product extends Component {
   }
 
   render() {
+    // console.log(this.props.data);
     return (
       <>
         <div>{this.displaySingleProduct()}</div>

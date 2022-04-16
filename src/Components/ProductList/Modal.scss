@@ -1,65 +1,76 @@
 .modalBg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width:100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
 
-    .btn-cls {
-      font-size: 30px;
-      font-weight: bold;
-      background-color: transparent;
-      color: white;
-      padding: 1rem;
-      margin-right: 0;
-      border: none;
-    }
+  .btn-cls {
+    font-size: 30px;
+  font-weight: bold;
+  background-color: rgba(133, 124, 124, 0.6);
+  color: red;
+  padding: 1rem;
+  margin: 20px;
+  float: right;
+  margin-right: 10;
+  border: none;
   }
-  
-  .modal-body {
-    position:fixed;
-    background: white;
-    width: 40%;
-    height: auto;
-    padding: 2rem;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-  }
-
-  .btn-closeModal {
-    background-color: none;
-    color: white;
-    font-size: 27px;
-    font-weight: 800;
-  }
-  
- 
-
-  .btn-modal {
-    display: flex;
-    width: 100%;
-  
-    .btn-add-to-cart {
-      background-color: green;
-      margin: 6px 10px;
-      width: 50%;
-      border: none;
-      padding: .6rem;
-      font-size: 20px;
-      font-weight: 600;
-      color: white;
-    }
-
-    .close-btn {
-      background-color: rgb(242, 2, 2);
-      margin: 6px 10px;
-      width: 50%;
-      border: none;
-      padding: .6rem;
-      font-size: 20px;
-      font-weight: 600;
-      color: white;
-    }
 }
+
+.modal-body {
+  position: fixed;
+  background: white;
+  width: 20%;
+  height: auto;
+  padding: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modalProductImg {
+  width: 100%;
+  height: 12%;
+  margin: 0 auto;
+}
+  p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .btn-modalProduct {
+    padding: 5px;
+    margin:4px;
+    width: 50px;
+    height: 45px;
+    border: 1px solid grey;
+  }
+
+  .btn-add-to-cart-modal {
+    padding: 10px;
+    font-size: 18px; 
+    text-transform: uppercase;
+    border: none;
+    color: white;
+    width: 45%;
+    background-color: green ;
+  }
+
+  .btn-add-cancel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  .btn-cancel {
+    background-color: red;
+    padding: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border: none;
+    width: 45%;
+  }
+

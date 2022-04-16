@@ -1,34 +1,223 @@
+@import "./../../Variables/Variables.scss";
+
 .modalBgr {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width:100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
 
-    .btn-cls {
-        font-size: 30px;
-        font-weight: bold;
-        background-color: transparent;
-        color: white;
-        padding: 1rem;
-        margin-right: 0;
-        border: none;
-      }
+  .btn-cls {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgba(133, 124, 124, 0.6);
+    color: red;
+    padding: 1rem;
+    margin: 20px;
+    float: right;
+    margin-right: 10;
+    border: none;
   }
-  
-  .modal-boody {
-    position:fixed;
-    background: white;
-    width: 450px;
-    height: 500px;
-    overflow: hidden;
+}
+
+.card-container {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  z-index: 3;
+  width: 25%;
+  top: -0.8rem;
+  right: 8.5%;
+  padding: 10px;
+  z-index: 100;
+}
+
+.emptyCard {
+  position: absolute;
+  padding: 2rem;
+  background-color: $white-color;
+  right: -1rem;
+
+  .btn-close-cart {
+    background-color: red;
+    color: $white-color;
+    text-align: right;
+    margin: 0.3rem 0;
     padding: 10px;
-    top:10%;
-    left:64%;
-    z-index: 10000;
+    border: none;
+  }
+}
+
+.card-content-container-full {
+  width: 100%;
+  background-color: $white-color;
+  padding: 15px;
+  margin-top: 4rem;
+  // opacity: 1000;
+
+  .cart-qty-heard {
+    margin: 1.5rem 0.8rem;
   }
 
- 
+  .cart-content-container {
+    height: auto;
 
+    .card-content {
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.car-item {
+  margin: 13px;
+  position: relative;
+  margin-bottom: 25px;
+  width: 96%;
+  height: 16vh;
+
+  .item-prod-name {
+    color: $black-color;
+    margin-bottom: 0.7rem;
+  }
+}
+
+.cart-prod-items-show {
+  display: flex;
+  justify-content: space-between;
+
+  .item-prod-belt-left {
+    display: flex;
+    flex-direction: column;
+
+    .car-price {
+      float: right;
+      display: inline;
+      font-weight: 600;
+    }
+
+    .button-prod-cart {
+      margin-top: -6px;
+
+      .button-attribute {
+        padding: 5px 13px;
+        background-color: transparent;
+        border: none;
+        outline: 1px solid $gray-color;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .item-prod-belt-right {
+    display: flex;
+    flex-direction: row;
+
+    .button-prod-quantity {
+      display: flex;
+      flex-direction: column;
+      margin-right: 6px;
+
+      .button-quantity {
+        padding: 9px;
+        border: none;
+        font-size: 16px;
+        border: 1px solid rgb(134, 134, 134);
+      }
+
+      .cart-qty {
+        font-size: 16px;
+        align-items: center;
+        justify-content: center;
+        margin: 5px auto;
+      }
+    }
+    .car-img {
+      width: 100px;
+      height: 100%;
+      border: 1px solid $gray-color;
+    }
+  }
+}
+
+.pro-card {
+  text-decoration: none;
+}
+
+.car-delete-btn {
+  position: absolute;
+  left: 5.8rem;
+  top: 5rem;
+  z-index: 3;
+}
+
+.item-prod-button {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .car-btn,
+  .car-btn-cart {
+    display: flex;
+    border: 0.5px solid rgb(218, 215, 215);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 5.5rem;
+    width: 9rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.car-btn-cart:hover,
+.car-btn-cart:focus,
+.car-btn:hover,
+.car-btn:focus {
+  background-color: $green-color;
+  color: $white-color;
+}
+
+.empty-card {
+  background-color: $white-color;
+  width: 170px;
+  height: 50px;
+  padding: 10px;
+  float: right;
+  margin: 4% 9%;
+}
+
+.car-total {
+  margin: 0 auto 15px;
+  padding: 5px;
+
+  span {
+    float: right;
+    font-weight: bold;
+  }
+}
+
+a {
+  color: $green-color;
+}
+
+a[class="active"] {
+  border-bottom: 1px solid $green-color !important;
+}
+
+.item-prod-quantity {
+  margin-bottom: 1rem;
+}
+
+.cart-quantities {
+  position: absolute;
+  padding: 0.3rem;
+  background-color: $black-color;
+  top: 1.2rem;
+  border-radius: 50%;
+  font-size: 12px;
+  color: $white-color;
+  right: -1%;
+}

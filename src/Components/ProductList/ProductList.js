@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getCategories } from "../../GraphQl/Queries";
 import "../Navbar/Navbar.js";
 import Modal from "./ModalProduct";
@@ -13,19 +13,25 @@ class ProductList extends React.Component {
     this.state = {
       categoryName: "All",
       modalVisibility: false,
+      productId: "",
+      
     };
 
     this.addToCart = this.addToCart.bind(this);
-    this.handleVisibilty = this.handleVisibilty.bind(this);
-    this.hideModal = this.hideModal.bind(this)
+    // this.handleVisibilty = this.handleVisibilty.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
-  handleVisibilty(){
-    this.setState({modalVisibility : true})
+  // handleVisibilty(id){
+  //   this.setState({modalVisibility : true, productId : id})
+  // }
+
+  hideModal() {
+    this.setState({ modalVisibility: false });
   }
 
-  hideModal(){
-    this.setState({modalVisibility : false})
+  onChangeSizeHandler = () => {
+
   }
 
   addToCart(item) {
@@ -74,7 +80,6 @@ class ProductList extends React.Component {
       var prod = [];
       if (products.length > 0) {
         prod = products[0].products;
-    // console.log(prod.brand);
 
         return (
           <div>
@@ -82,21 +87,22 @@ class ProductList extends React.Component {
               <div className="categorName">{selectedCategory}</div>
             </div>
             <div className="product-section">
-              
               {prod.map((item) => {
-              // console.log(item.attributes);
-
                 return (
                   <div key={item.id}>
-                    {/* <Link
-                      className="pro-card"
-                      to={`/product/${item.id}`}
-                      onClick={() => {
-                        localStorage["selectedProductId"] = item.id;
-                      }}
-                    > */}
-                      <div className="card">
-                      { !item.inStock && <div className="outOfStockBadge"><h2>OUT OF STOCK</h2></div>}
+                    <div className="card">
+                      <Link
+                        className="pro-card"
+                        to={`/product/${item.id}`}
+                        onClick={() => {
+                          localStorage["selectedProductId"] = item.id;
+                        }}
+                      >
+                        {!item.inStock && (
+                          <div className="outOfStockBadge">
+                            <h2>OUT OF STOCK</h2>
+                          </div>
+                        )}
                         <div className="card-image">
                           <img
                             className="img-card"
@@ -120,15 +126,33 @@ class ProductList extends React.Component {
                             </b>
                           </h4>
                         </div>
-                        <button type="button"
+                      </Link>
+
+                      {item.inStock ? (
+                        <button
+                          type="button"
                           to="#"
-                          className="product-cart" 
-                          onClick={this.handleVisibilty}
+                          className="product-cart"
+                          onClick={() => {
+                            this.setState({
+                              modalVisibility: true,
+                              productId: item.id,
+                            });
+                          }}
                         >
                           <i className="fa fa-shopping-cart"></i>
                         </button>
-                      </div>
-                    {/* </Link> */}
+                      ) : (
+                        <button
+                          type="button"
+                          to="#"
+                          className="product-cart-out0fStock"
+                          disabled
+                        >
+                          <i className="fa fa-shopping-cart"></i>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -137,17 +161,30 @@ class ProductList extends React.Component {
         );
       }
     }
-  }
+  };
 
   render() {
-    return <div>
+    let products = [];
+    // let selectedSingleProduct = []
+
+    if (typeof this.props.data.categories !== "undefined") {
+      products = this.props.data.categories[0].products;
+    }
+    let selectedProduct = products.filter((p) => p.id == this.state.productId);
+
+    // console.log(products[selectedProduct]);
+
+    return (
+      <div>
         {this.displayProducts()}
-        <Modal 
-          handleVisibilty={this.state.modalVisibility} 
+        <Modal
+          handleVisibilty={this.state.modalVisibility}
           handleClose={this.hideModal}
-          // prodItem = {this.products}
+          selectedProductId={this.state.productId}
+          selectedSingleProduct={selectedProduct}
         />
-      </div>;
+      </div>
+    );
   }
 }
 

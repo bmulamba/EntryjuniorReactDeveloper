@@ -6,6 +6,7 @@ export default class Cart extends Component {
     super()
     this.state = {
       selectedImg : 0,
+      productQuantity: 0,
     }
   }
 
@@ -40,12 +41,20 @@ export default class Cart extends Component {
             </div>
             <div className="cart-mini-imag">
               <div className="cart-mini-add">
-                <button onClick={() => this.addToCart(product)}>+</button>
+                <button 
+                  onClick={() => {
+                    this.setState({ productQuantity: 0 });
+                    this.addToCart(product)}}>+</button>
                 <h4 className="cart-quantity">{product.quantity}</h4>
-                <button onClick={() => this.minusToCart(product)}>-</button>
+                <button 
+                  onClick={() => {
+                    this.setState({ productQuantity: 0 });
+                    this.minusToCart(product)}}
+                    disabled={product.quantity == 1}
+                    >-</button>
               </div>
               <div className="cart-img">
-                {
+               {
                   product.gallery === 1 ? (
                     <div className="cart-mini-img">
                     <img
