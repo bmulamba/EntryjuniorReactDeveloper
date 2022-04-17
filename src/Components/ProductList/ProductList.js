@@ -14,11 +14,9 @@ class ProductList extends React.Component {
       categoryName: "All",
       modalVisibility: false,
       productId: "",
-      
     };
 
     this.addToCart = this.addToCart.bind(this);
-    // this.handleVisibilty = this.handleVisibilty.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
@@ -30,9 +28,7 @@ class ProductList extends React.Component {
     this.setState({ modalVisibility: false });
   }
 
-  onChangeSizeHandler = () => {
-
-  }
+  onChangeSizeHandler = () => {};
 
   addToCart(item) {
     item["quantity"] = 1;
@@ -182,6 +178,8 @@ class ProductList extends React.Component {
           handleClose={this.hideModal}
           selectedProductId={this.state.productId}
           selectedSingleProduct={selectedProduct}
+          addToCart={this.addToCart}
+          
         />
       </div>
     );

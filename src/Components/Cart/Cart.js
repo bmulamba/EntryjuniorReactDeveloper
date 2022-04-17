@@ -2,22 +2,21 @@ import React, { Component } from "react";
 import "./Cart.scss";
 
 export default class Cart extends Component {
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.state = {
-      selectedImg : 0,
+      selectedImg: 0,
       productQuantity: 0,
-    }
+    };
   }
 
   // carouselImgHandler = (event, value) => {
   //   event.preventDefault();
   //   const selectTemp = (this.state.selectedImg + value) % product.gallery.length;
-  //   selectTemp >= 0 
+  //   selectTemp >= 0
   //     ? this.setState({selectedImg : selectTemp })
   //     : this.setState({ selectedImg : product.gallery.length + selectTemp})
   // }
-
 
   cartdetails = () => {
     var products = JSON.parse(localStorage["cardProduct"]);
@@ -31,9 +30,11 @@ export default class Cart extends Component {
               <h3 id="product-type py-5">{product.brand}</h3>
               <h3 id="product-type">
                 {localStorage["currencySymbol"]}{" "}
-                {product.prices.find(
-                  (p) => p.currency.symbol === localStorage["currencySymbol"]
-                ).amount}
+                {
+                  product.prices.find(
+                    (p) => p.currency.symbol === localStorage["currencySymbol"]
+                  ).amount
+                }
               </h3>
               {/* <div className="cart-size">
                 <span>{localStorage["productSize"]}</span>
@@ -41,65 +42,70 @@ export default class Cart extends Component {
             </div>
             <div className="cart-mini-imag">
               <div className="cart-mini-add">
-                <button 
+                <button
                   onClick={() => {
                     this.setState({ productQuantity: 0 });
-                    this.addToCart(product)}}>+</button>
+                    this.addToCart(product);
+                  }}
+                >
+                  +
+                </button>
                 <h4 className="cart-quantity">{product.quantity}</h4>
-                <button 
+                <button
                   onClick={() => {
                     this.setState({ productQuantity: 0 });
-                    this.minusToCart(product)}}
-                    disabled={product.quantity == 1}
-                    >-</button>
+                    this.minusToCart(product);
+                  }}
+                  disabled={product.quantity == 1}
+                >
+                  -
+                </button>
               </div>
               <div className="cart-img">
-               {
-                  product.gallery === 1 ? (
-                    <div className="cart-mini-img">
-                    <img
-                      src={product.gallery[0]}
-                      alt={product.name}
-                    />
-                    </div>
-                  ) : (
-                    <div 
-                      id={"CarouselExampleControls" + product.id}
-                      className = "carousel slide"
-                      data-ride="carousel"
-                    >
-                      <div className="carousel-inner">
-                        <div className="carousel-item product-img active">
-                          <div className="product-overlay"></div>
-                          <img
-                              src={product.gallery[this.state.selectedImg]}
-                              alt={product.name}
-                          />
-                        </div>
+                {product.gallery === 1 ? (
+                  <div className="cart-mini-img">
+                    <img src={product.gallery[0]} alt={product.name} />
+                  </div>
+                ) : (
+                  <div
+                    id={"CarouselExampleControls" + product.id}
+                    className="carousel slide"
+                    data-ride="carousel"
+                  >
+                    <div className="carousel-inner">
+                      <div className="carousel-item product-img active">
+                        <div className="product-overlay"></div>
+                        <img
+                          src={product.gallery[this.state.selectedImg]}
+                          alt={product.name}
+                        />
                       </div>
-                      <a 
-                        className="carousel-control-prev"
-                        href={"#CarouselExampleControls" + product.id}
-                        role="button"
-                        data-slide="prev"
-                        onClick={(event) => {this.carouselImgHandler(event, -1)}}
-                      >
-                        prev
-                      </a>
-
-                      <a 
-                        className="carousel-control-prev"
-                        href={"#CarouselExampleControls" + product.id}
-                        role="button"
-                        data-slide="prev"
-                        onClick={(event) => {this.carouselImgHandler(event, 1)}}
-                      >
-                        next
-                      </a>
-                      
                     </div>
-                  )
-                }
+                    <a
+                      className="carousel-control-prev"
+                      href={"#CarouselExampleControls" + product.id}
+                      role="button"
+                      data-slide="prev"
+                      onClick={(event) => {
+                        this.carouselImgHandler(event, -1);
+                      }}
+                    >
+                      prev
+                    </a>
+
+                    <a
+                      className="carousel-control-prev"
+                      href={"#CarouselExampleControls" + product.id}
+                      role="button"
+                      data-slide="prev"
+                      onClick={(event) => {
+                        this.carouselImgHandler(event, 1);
+                      }}
+                    >
+                      next
+                    </a>
+                  </div>
+                )}
                 {/* <img src={product.gallery[0]} alt="" /> */}
               </div>
             </div>
@@ -114,10 +120,8 @@ export default class Cart extends Component {
         </div>
       );
     });
-    
-  }
+  };
 
- 
   addToCart = (product) => {
     product["quantity"] = 1;
 

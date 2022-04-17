@@ -12,8 +12,8 @@ class Navbar extends Component {
     this.state = {
       showCurrency: false,
       showCart: false,
-      modaleVisibility : false,
-      cardProductsQuantity : 0
+      modaleVisibility: false,
+      cardProductsQuantity: 0,
     };
 
     if (typeof localStorage["currencySymbol"] === "undefined") {
@@ -22,12 +22,12 @@ class Navbar extends Component {
   }
 
   handleVisibilty = () => {
-    this.setState({modaleVisibility : true})
-  }
+    this.setState({ modaleVisibility: true });
+  };
 
   hideModal = () => {
-    this.setState({modaleVisibility : false})
-  }
+    this.setState({ modaleVisibility: false });
+  };
 
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
@@ -42,9 +42,12 @@ class Navbar extends Component {
                 <h3 className="item-prod-names">{val.brand}</h3>
                 <p className="car-price">
                   {localStorage["currencySymbol"]}{" "}
-                  {val.prices.find(
-                    (p) => p.currency.symbol === localStorage["currencySymbol"]
-                  ).amount}
+                  {
+                    val.prices.find(
+                      (p) =>
+                        p.currency.symbol === localStorage["currencySymbol"]
+                    ).amount
+                  }
                 </p>
                 <span
                   className="car-delete-btn"
@@ -79,7 +82,7 @@ class Navbar extends Component {
         </>
       );
     });
-  }
+  };
 
   displayCurrency() {
     var data = this.props.data;
@@ -131,7 +134,7 @@ class Navbar extends Component {
         products[index].quantity += 1;
       } else {
         products.push(val);
-        this.setState({cardProductsQuantity : products.length})
+        this.setState({ cardProductsQuantity: products.length });
       }
       localStorage["cardProduct"] = JSON.stringify(products);
     }
@@ -190,12 +193,10 @@ class Navbar extends Component {
     localStorage.setItem("cardProduct", JSON.stringify(products));
     localStorage["totalCardAmount"] = amount.toFixed(2);
   }
-  
 
   render() {
     // console.log(localStorage.length);
 
-    
     return (
       <div className="header-nav">
         <div className="nav-bar">
@@ -272,14 +273,15 @@ class Navbar extends Component {
               </span>
               <p className="cart-quantities">
                 {typeof localStorage["cardProduct"] === "undefined" ||
-                  JSON.parse(localStorage["cardProduct"]).length} {" "}
+                  JSON.parse(localStorage["cardProduct"]).length + this.state.cardProductsQuantity}{" "}
+                  
               </p>
             </div>
           </div>
         </div>
         <MiniCart
           handleVisibilty={this.state.modaleVisibility}
-          handleClose = {this.hideModal}
+          handleClose={this.hideModal}
           // showCart = {this.state.showCart}
         />
       </div>

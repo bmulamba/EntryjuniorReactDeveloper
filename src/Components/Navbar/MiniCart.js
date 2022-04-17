@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./MiniCard.scss";
 
 export default class MiniCart extends Component {
@@ -13,7 +13,9 @@ export default class MiniCart extends Component {
 
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
+    // console.log(addedProducts);
     return addedProducts.map((val) => {
+      // console.log(val);
       return (
         <>
           <div className="car-item" key={val.id}>
@@ -37,7 +39,12 @@ export default class MiniCart extends Component {
                   <i className="fa fa-trash fa-lg"></i>
                 </span>
                 <div className="button-prod-cart">
-                  <button className="button-attribute">S</button>
+                  {/* <button className="button-attribute">S</button> */}
+
+                  {/* {val.attributes.map((attItem) => (
+                    <div>{attItem.size}</div>
+                  ))} */}
+                  
                 </div>
               </div>
               <div className="item-prod-belt-right">
@@ -85,10 +92,13 @@ export default class MiniCart extends Component {
       if (index >= 0) {
         products[index].quantity += 1;
         this.setState({ productQuantity: 1 });
+        this.props.handleClose();
       } else {
         products.push(val);
+        this.props.handleClose();
       }
       localStorage["cardProduct"] = JSON.stringify(products);
+      this.props.handleClose();
     }
 
     let amount = 0;
@@ -99,6 +109,7 @@ export default class MiniCart extends Component {
         ).amount * val.quantity);
     });
     localStorage["totalCardAmount"] = amount.toFixed(2);
+    this.props.handleClose();
   };
 
   minusToCart = (val) => {
@@ -160,7 +171,7 @@ export default class MiniCart extends Component {
                 (
                 <div className="card-content-container-full">
                   <h5 className="cart-qty-heard">
-                   <b> My Bag,</b>{" "}
+                    <b> My Bag,</b>{" "}
                     {typeof localStorage["cardProduct"] === "undefined" ||
                       JSON.parse(localStorage["cardProduct"]).length}{" "}
                     items
@@ -176,12 +187,19 @@ export default class MiniCart extends Component {
                       </span>
                     </h4>
                     <div className="item-prod-button">
-                      <Link className="car-btn" to="/cart" onClick={this.props.handleClose}>
+                      <Link
+                        className="car-btn"
+                        to="/cart"
+                        onClick={this.props.handleClose}
+                      >
                         {" "}
                         Checkout{" "}
-
                       </Link>
-                      <Link className="car-btn-cart" to="/cart" onClick={this.props.handleClose}>
+                      <Link
+                        className="car-btn-cart"
+                        to="/cart"
+                        onClick={this.props.handleClose}
+                      >
                         {" "}
                         Cart{" "}
                       </Link>
@@ -192,7 +210,7 @@ export default class MiniCart extends Component {
               </div>
             ) : (
               <div className="empty-card">
-                <p>Your  CART is empty</p>
+                <p>Your CART is empty</p>
               </div>
             )}
           </div>

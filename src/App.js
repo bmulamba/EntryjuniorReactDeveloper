@@ -13,7 +13,6 @@ class App extends react.Component {
   return (
     <div >
       <Navbar />
-      {/* <ProductList /> */}
 
       <Routes>
         <Route path="/" element = { <ProductList /> } />

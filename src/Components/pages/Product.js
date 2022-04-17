@@ -9,10 +9,20 @@ class Product extends Component {
     super(props);
 
     this.state = {
-      imgIndex : 0
+      imgIndex: 0,
+      attibutes : []
     };
 
     this.addToCart = this.addToCart.bind(this);
+  }
+
+  onChangeSizeHandler = (e, attributeType) => {
+    e.preventDefault();
+    let temp = {...this.state.attributes};
+    temp[attributeType] = e.target.value;
+    this.setState({size : e.target.value, attibutes : temp})
+    console.log(temp);
+    console.log(this.state.attibutes);
   }
 
   addToCart(prod) {
@@ -43,7 +53,6 @@ class Product extends Component {
     localStorage["productSize"] = this.state.productSize;
   }
 
-
   displaySingleProduct() {
     var data = this.props.data;
 
@@ -56,7 +65,7 @@ class Product extends Component {
 
       if (data.product) {
         prod = data.product;
-      
+
         var imgprod = this.props.data.product.gallery;
 
         var attrib = this.props.data.product.attributes;
@@ -70,13 +79,15 @@ class Product extends Component {
           <div className="product-detail-section">
             <div className="product-item">
               <div className="side-item">
-                { imgprod.map((item, index) => {
+                {imgprod.map((item, index) => {
                   return index <= 3 ? (
                     <div key={item} className="prod-sm-image">
                       {" "}
-                      <img src={item}
-                       onClick = {() => this.setState({imgIndex : index})}
-                       alt="" />
+                      <img
+                        src={item}
+                        onClick={() => this.setState({ imgIndex: index })}
+                        alt=""
+                      />
                     </div>
                   ) : (
                     <div key={item}></div>
@@ -86,7 +97,10 @@ class Product extends Component {
               <div className="product-image">
                 <span>
                   {" "}
-                  <img src={prod.gallery[this.state.imgIndex]} alt="{item.id}" />{" "}
+                  <img
+                    src={prod.gallery[this.state.imgIndex]}
+                    alt="{item.id}"
+                  />{" "}
                 </span>
               </div>
 
@@ -97,25 +111,27 @@ class Product extends Component {
                   {
                     // attrib > 0 &&
                     attrib.map((attribute) => (
-                      <div key={ prod.id + attribute.id}>
+                      <div key={prod.id + attribute.id}>
                         <p className="attribute-item">{attribute.id}</p>
                         <span>
-                          {
-                            attribute.items.map((item) =>
-                              item.value[0] === "#" ? (
-                                <button
+                          {attribute.items.map((item) =>
+                            item.value[0] === "#" ? (
+                              <button
                                 key={item.value}
-                                  value={item.displayValue}
-                                  style={{ backgroundColor: item.value }}
-                                ></button>
-                              ) : (
-                                <button value={item.value}   key={item.value}>
-                                  {" "}
-                                  {item.value}
-                                </button>
-                              )
+                                onClick={(e) =>this.onChangeSizeHandler(e, item.id)}
+                                value={item.displayValue}
+                                style={{ backgroundColor: item.value }}
+                              ></button>
+                            ) : (
+                              <button 
+                              value={item.value} 
+                              key={item.value}
+                              onClick={(e) =>this.onChangeSizeHandler(e, item.id)}
+                              > {" "}                                
+                                {item.value}
+                              </button>
                             )
-                          }
+                          )}
                         </span>
                       </div>
                     ))
