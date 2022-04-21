@@ -14,6 +14,7 @@ class ProductList extends React.Component {
       categoryName: "All",
       modalVisibility: false,
       productId: "",
+      attributes: {},
     };
 
     this.addToCart = this.addToCart.bind(this);
@@ -28,10 +29,32 @@ class ProductList extends React.Component {
     this.setState({ modalVisibility: false });
   }
 
-  onChangeSizeHandler = () => {};
+  selectedAttributes = []
+  componentDidUpdate(){
+    this.selectedAttributes = this.state.attributes
+  }
 
-  addToCart(item) {
+  onChangeSizeHandler = (e, attributeType) => {
+    e.preventDefault();
+    
+    let temp = {...this.state.attributes};
+    attributeType = e.target.value;
+    this.setState({ size: e.target.value, attributes: temp });
+   
+    // console.log(e.target.value);
+    
+  };
+
+  
+  addToCart(item, attributes = null) {
+    let attributesArray = [];
+    attributesArray.push(attributes)
+
     item["quantity"] = 1;
+    // let productAttributes = []
+    // console.log(this.selectedAttributes);
+    item["attributes"] = attributesArray
+
 
     if (localStorage["cardProduct"] == null) {
       localStorage["cardProduct"] = JSON.stringify([item]);
@@ -42,6 +65,7 @@ class ProductList extends React.Component {
         products[index].quantity += 1;
       } else {
         products.push(item);
+        this.hideModal();
       }
       localStorage["cardProduct"] = JSON.stringify(products);
     }
@@ -54,8 +78,10 @@ class ProductList extends React.Component {
         ).amount * val.quantity);
     });
     localStorage["totalCardAmount"] = amount.toFixed(2);
+    // this.props.handleClose();
   }
 
+  
   displayProducts = () => {
     var data = this.props.data;
     const selectedCategory = localStorage["category"];
@@ -161,25 +187,26 @@ class ProductList extends React.Component {
 
   render() {
     let products = [];
-    // let selectedSingleProduct = []
 
     if (typeof this.props.data.categories !== "undefined") {
       products = this.props.data.categories[0].products;
     }
-    let selectedProduct = products.filter((p) => p.id == this.state.productId);
+    let selectedProduct = products.filter((p) => p.id === this.state.productId);
 
     // console.log(products[selectedProduct]);
 
     return (
       <div>
+        
         {this.displayProducts()}
         <Modal
+        
           handleVisibilty={this.state.modalVisibility}
           handleClose={this.hideModal}
           selectedProductId={this.state.productId}
           selectedSingleProduct={selectedProduct}
-          addToCart={this.addToCart}
-          
+          onChangeSizeHandler={this.onChangeSizeHandler}
+          addToCart={this.addToCart} 
         />
       </div>
     );

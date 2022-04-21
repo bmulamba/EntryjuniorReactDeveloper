@@ -11,11 +11,17 @@ export default class MiniCart extends Component {
     };
   }
 
+  // displayProductAttributes = (attribute) => {
+  //   var keys = Object.keys(attribute)
+  //   var values = Object.values(attribute)
+
+
+  // }
+
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
     // console.log(addedProducts);
     return addedProducts.map((val) => {
-      // console.log(val);
       return (
         <>
           <div className="car-item" key={val.id}>
@@ -26,7 +32,7 @@ export default class MiniCart extends Component {
                 <p className="car-price">
                   {localStorage["currencySymbol"]}{" "}
                   {
-                    val.prices.find(
+                    val.prices?.find(
                       (p) =>
                         p.currency.symbol === localStorage["currencySymbol"]
                     ).amount
@@ -38,14 +44,14 @@ export default class MiniCart extends Component {
                 >
                   <i className="fa fa-trash fa-lg"></i>
                 </span>
-                <div className="button-prod-cart">
-                  {/* <button className="button-attribute">S</button> */}
-
-                  {/* {val.attributes.map((attItem) => (
-                    <div>{attItem.size}</div>
-                  ))} */}
-                  
-                </div>
+                {/* <div className="button-prod-cart">
+                  {val.attributes[0].map((value, i) => {
+                    return (
+                    <div key= {i}>
+                      {value}
+                    </div> )
+    })}
+                </div> */}
               </div>
               <div className="item-prod-belt-right">
                 <div className="button-prod-quantity">
@@ -67,7 +73,7 @@ export default class MiniCart extends Component {
                       this.setState({ productQuantity: 0 });
                       this.minusToCart(val);
                     }}
-                    disabled={val.quantity == 1}
+                    disabled={val.quantity == 0}
                   >
                     -
                   </button>
@@ -92,13 +98,11 @@ export default class MiniCart extends Component {
       if (index >= 0) {
         products[index].quantity += 1;
         this.setState({ productQuantity: 1 });
-        this.props.handleClose();
       } else {
         products.push(val);
         this.props.handleClose();
       }
       localStorage["cardProduct"] = JSON.stringify(products);
-      this.props.handleClose();
     }
 
     let amount = 0;
@@ -109,7 +113,6 @@ export default class MiniCart extends Component {
         ).amount * val.quantity);
     });
     localStorage["totalCardAmount"] = amount.toFixed(2);
-    this.props.handleClose();
   };
 
   minusToCart = (val) => {
@@ -158,7 +161,7 @@ export default class MiniCart extends Component {
   }
 
   render() {
-    // console.log(this.props.);
+    // console.log(val.attributes);
     return (
       <div>
         {this.props.handleVisibilty ? (
@@ -210,7 +213,7 @@ export default class MiniCart extends Component {
               </div>
             ) : (
               <div className="empty-card">
-                <p>Your CART is empty</p>
+                <p>Your Cart is empty</p>
               </div>
             )}
           </div>

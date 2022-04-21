@@ -7,64 +7,49 @@ export default class Modal extends Component {
 
     this.state = {
       attributes: [],
-      // productAttributes : []
     };
   }
 
-  
   onChangeSizeHandler = (e, attributeType) => {
     e.preventDefault();
-    
-    // let temp = [...this.state.attributes];
-    // attributeType = e.target.value;
-    this.setState({ size: e.target.value, attributes: [...this.state.attributes, attributeType(e.target.value)] });
-    
-    
+    let temp = { ...this.state.attributes };
+    this.setState({ size: e.target.value, attributes: temp });
+    temp[attributeType] = e.target.value;
+   
+
     // console.log(e.target.value);
-    
   };
 
-  selectedAttributes = []
-  componentDidUpdate(){
-    this.selectedAttributes = this.state.attributes
+  selectedAttributes = [];
+  componentDidUpdate() {
+    this.selectedAttributes = this.state.attributes;
   }
 
-
-  addToCart(item) {
-    item["quantity"] = 1;
-    // let productAttributes = []
-    item["attributes"] = this.selectedAttributes
-
-    if (localStorage["cardProduct"] == null) {
-      localStorage["cardProduct"] = JSON.stringify([item]);
-    } else {
-      let products = JSON.parse(localStorage["cardProduct"]) || [];
-      const index = products.findIndex((obj) => obj.id === item.id);
-      if (index >= 0) {
-        products[index].quantity += 1;
-      } else {
-        products.push(item);
-      }
-      localStorage["cardProduct"] = JSON.stringify(products);
+  addProductToCart = (e) => {
+    e.preventDefault();
+    var attributesArray = Object.values(this.selectedAttributes)
+    let attributesLength = this.props.selectedSingleProduct[0].attributes.length
+    if (attributesLength === 0) {
+      this.props.addToCart(this.props.selectedSingleProduct[0]);
+    } else if (attributesLength > 0) {
+      console.log(attributesArray);
+      attributesArray.length === attributesLength
+        ? this.props.addToCart(
+          this.props.selectedSingleProduct[0], this.selectedAttributes
+          )
+        : alert(`Please Provide the attributes`);
     }
-
-    let amount = 0;
-    JSON.parse(localStorage["cardProduct"]).map((val) => {
-      return (amount +=
-        val.prices.find(
-          (p) => p.currency.symbol === localStorage["currencySymbol"]
-        ).amount * val.quantity);
-    });
-    localStorage["totalCardAmount"] = amount.toFixed(2);
-  }
+  };
 
   render() {
     // console.log(this.props.selectedProductId);
-    // console.log(this.props.selectedSingleProduct);
+    // console.log(this.props.selectedSingleProduct[0].attributes.length);
 
     // console.log(this.props.selectedSingleProduct.brand);
 
     var attrib = this.props.selectedSingleProduct;
+
+    // console.log(this.props.selectedSingleProduct);
 
     // console.log(attrib);
 
@@ -84,43 +69,49 @@ export default class Modal extends Component {
                     alt=""
                   ></img>
                   <form onSubmit={this.onSubmitHandler}>
-                  {item.attributes.map((attribute) => (
-                    <div key={attribute.id}>
-                      <p>{attribute.id}</p>
-                      <span>
-                        {attribute.items.map((item) =>
-                          item.value[0] === "#" ? (
-                            <button
-                              className="btn-modalProduct"
-                              key={item.value}
-                              value={item.displayValue}
-                              style={{ backgroundColor: item.value }}
-                              onClick={(e) =>
-                                this.onChangeSizeHandler(e, attribute.id)
-                              }
-                            ></button>
-                          ) : (
-                            <button
-                              value={item.value}
-                              className="btn-modalProduct"
-                              key={item.value}
-                              onClick={(e) =>
-                                this.onChangeSizeHandler(e, attribute.id)
-                              }
-                            >
-                              {" "}
-                              {item.value}
-                            </button>
-                          )
-                        )}
-                      </span>
-                    </div>
-                  ))}
+                    {item.attributes.map((attribute) => (
+                      <div key={attribute.id}>
+                        <p>{attribute.id}</p>
+                        <span>
+                          {attribute.items.map((item) =>
+                            item.value[0] === "#" ? (
+                              <button
+                                className="btn-modalProduct"
+                                key={item.value}
+                                value={item.displayValue}
+                                style={{ backgroundColor: item.value }}
+                                onClick={(e) =>
+                                  this.onChangeSizeHandler(
+                                    e,
+                                    attribute.id
+                                  )
+                                }
+                              ></button>
+                            ) : (
+                              <button
+                                value={item.value}
+                                className="btn-modalProduct"
+                                key={item.value}
+                                onClick={(e) =>
+                                  this.onChangeSizeHandler(
+                                    e,
+                                    attribute.id
+                                  )
+                                }
+                              >
+                                {" "}
+                                {item.value}
+                              </button>
+                            )
+                          )}
+                        </span>
+                      </div>
+                    ))}
                   </form>
                   <div className="btn-add-cancel">
                     <button
                       className="btn-add-to-cart-modal"
-                      onClick={() => this.addToCart(item)}
+                      onClick={this.addProductToCart}
                     >
                       add to cart
                     </button>

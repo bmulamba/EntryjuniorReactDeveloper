@@ -195,7 +195,6 @@ class Navbar extends Component {
   }
 
   render() {
-    // console.log(localStorage.length);
 
     return (
       <div className="header-nav">

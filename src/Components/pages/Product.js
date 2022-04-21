@@ -10,48 +10,42 @@ class Product extends Component {
 
     this.state = {
       imgIndex: 0,
-      attibutes : []
+      attributes: {}
     };
 
-    this.addToCart = this.addToCart.bind(this);
   }
 
   onChangeSizeHandler = (e, attributeType) => {
     e.preventDefault();
-    let temp = {...this.state.attributes};
+    let temp = { ...this.state.attributes };
     temp[attributeType] = e.target.value;
-    this.setState({size : e.target.value, attibutes : temp})
-    console.log(temp);
-    console.log(this.state.attibutes);
+    this.setState({ size: e.target.value, attributes: temp });
+  };
+
+ 
+  selectedAttributes = [];
+  componentDidUpdate = () => {
+    this.selectedAttributes = this.state.attributes;
   }
 
-  addToCart(prod) {
-    prod["quantity"] = 1;
+  // addProductToCart = (e, prod) => {
+  //   e.preventDefault();
+  //   if (this.props.data.product.attributes.length === 0) {
+  //     this.addToCart({
+  //       id : prod.id,
+  //       attributes : [],
+  //       size : "item",
+  //     })
+  //   } else if (this.props.data.product.attributes.length > 0) {
+  //     Object.entries(this.props.product.attributes.length).length ===
+  //     Object.entries(this.state.attributes).length ? this.props.addToCart({
+  //       id : prod.id,
+  //       selectedAttributes : this.state.attributes,
+  //       attributes : this.props.product.attributes
+  //     }) : alert(`Please Provide the attributes`)
+  //   }
+  // }
 
-    if (localStorage["cardProduct"] == null) {
-      localStorage["cardProduct"] = JSON.stringify([prod]);
-    } else {
-      let products = JSON.parse(localStorage["cardProduct"]) || [];
-      const index = products.findIndex((obj) => obj.id === prod.id);
-      if (index >= 0) {
-        products[index].quantity += 1;
-        window.location.reload(false);
-      } else {
-        products.push(prod);
-      }
-      localStorage["cardProduct"] = JSON.stringify(products);
-    }
-
-    let amount = 0;
-    JSON.parse(localStorage["cardProduct"]).map((val) => {
-      return (amount +=
-        val.prices.find(
-          (p) => p.currency.symbol === localStorage["currencySymbol"]
-        ).amount * val.quantity);
-    });
-    localStorage["totalCardAmount"] = amount.toFixed(2);
-    localStorage["productSize"] = this.state.productSize;
-  }
 
   displaySingleProduct() {
     var data = this.props.data;
@@ -69,6 +63,7 @@ class Product extends Component {
         var imgprod = this.props.data.product.gallery;
 
         var attrib = this.props.data.product.attributes;
+        
 
         // var attr = this.props.data.product.attributes.items
 
@@ -108,35 +103,55 @@ class Product extends Component {
                 <h1>{prod.name}</h1>
                 <h2>{prod.brand}</h2>
                 <div className="product-size">
-                  {
-                    // attrib > 0 &&
-                    attrib.map((attribute) => (
-                      <div key={prod.id + attribute.id}>
-                        <p className="attribute-item">{attribute.id}</p>
-                        <span>
-                          {attribute.items.map((item) =>
-                            item.value[0] === "#" ? (
-                              <button
-                                key={item.value}
-                                onClick={(e) =>this.onChangeSizeHandler(e, item.id)}
-                                value={item.displayValue}
-                                style={{ backgroundColor: item.value }}
-                              ></button>
-                            ) : (
-                              <button 
-                              value={item.value} 
-                              key={item.value}
-                              onClick={(e) =>this.onChangeSizeHandler(e, item.id)}
-                              > {" "}                                
-                                {item.value}
-                              </button>
-                            )
-                          )}
-                        </span>
-                      </div>
-                    ))
-                  }
+                  <form onSubmit={this.onSubmitHandler}>
+                    {this.props.data.product.attributes.length > 0 &&
+                      attrib.map((attribute) => (
+                        <div key={prod.id + attribute.id}>
+                          <p className="attribute-item">{attribute.id}</p>
+                          <span>
+                            {attribute.items.map((item) =>
+                              item.value[0] === "#" ? (
+                                <button
+                                  key={item.value}
+                                  onClick={(e) =>
+                                    this.onChangeSizeHandler(e, item.id)
+                                  }
+                                  value={item.displayValue}
+                                  style={{ backgroundColor: item.value }}
+                                  className={
+                                    this.props.data.product.attributes[
+                                      attribute.id
+                                    ] === item.displayValue
+                                      ? "active-color"
+                                      : ""
+                                  }
+                                ></button>
+                              ) : (
+                                <button
+                                  value={item.value}
+                                  key={item.value}
+                                  onClick={(e) =>
+                                    this.onChangeSizeHandler(e, item.id)
+                                  }
+                                  className={
+                                    this.props.data.product.attributes[
+                                      attribute.id
+                                    ] === item.value
+                                      ? "active"
+                                      : ""
+                                  }
+                                >
+                                  {" "}
+                                  {item.value}
+                                </button>
+                              )
+                            )}
+                          </span>
+                        </div>
+                      ))}
+                  </form>
                 </div>
+                
                 <div className="product-price">
                   <span>price : </span>
                   <span>
@@ -170,7 +185,6 @@ class Product extends Component {
   }
 
   render() {
-    // console.log(this.props.data);
     return (
       <>
         <div>{this.displaySingleProduct()}</div>

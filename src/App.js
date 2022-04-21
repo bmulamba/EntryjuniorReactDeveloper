@@ -5,7 +5,6 @@ import Product from './Components/pages/Product'
 import ProductList from './Components/ProductList/ProductList';
 import Cart from './Components/Cart/Cart';
 import './default.scss';
-// import Cart from ''
 
 
 class App extends react.Component {
