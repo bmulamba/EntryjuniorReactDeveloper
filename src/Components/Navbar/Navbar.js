@@ -195,7 +195,6 @@ class Navbar extends Component {
   }
 
   render() {
-
     return (
       <div className="header-nav">
         <div className="nav-bar">
@@ -272,8 +271,8 @@ class Navbar extends Component {
               </span>
               <p className="cart-quantities">
                 {typeof localStorage["cardProduct"] === "undefined" ||
-                  JSON.parse(localStorage["cardProduct"]).length + this.state.cardProductsQuantity}{" "}
-                  
+                  JSON.parse(localStorage["cardProduct"]).length +
+                    this.state.cardProductsQuantity}{" "}
               </p>
             </div>
           </div>

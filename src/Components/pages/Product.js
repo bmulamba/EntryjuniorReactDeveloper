@@ -10,9 +10,8 @@ class Product extends Component {
 
     this.state = {
       imgIndex: 0,
-      attributes : []
+      attributes: [],
     };
-
   }
 
   onChangeSizeHandler = (e, attributeType) => {
@@ -25,27 +24,21 @@ class Product extends Component {
   selectedAttributes = [];
   componentDidUpdate() {
     this.selectedAttributes = this.state.attributes;
-    // console.log(this.state.attributes);
   }
- 
+
   addProductToCart = (e) => {
-    // console.log("clikced");
     e.preventDefault();
     var attributesArray = Object.values(this.selectedAttributes);
     let attributesLength = this.props.data.product.attributes.length;
-    // console.log(this.props.data.product);
     if (attributesLength === 0) {
       this.addToCart(this.props.data.product);
     } else if (attributesLength > 0) {
       attributesArray.length === attributesLength
-        ? this.addToCart(
-            this.props.data.product,
-            this.selectedAttributes
-          )
+        ? this.addToCart(this.props.data.product, this.selectedAttributes)
         : alert(`Please select all attributes`);
     }
   };
- 
+
   addToCart(item, attributes = null) {
     let attributesArray = [];
     if (attributes != null) {
@@ -55,9 +48,9 @@ class Product extends Component {
         attributesArray.push({ key: keys[i], value: values[i] });
       }
     }
- 
+
     item["quantity"] = 1;
-   
+
     item["attributes"] = attributesArray;
 
     if (localStorage["cardProduct"] == null) {
@@ -69,7 +62,6 @@ class Product extends Component {
         products[index].quantity += 1;
       } else {
         products.push(item);
-        // this.hideModal();
       }
       localStorage["cardProduct"] = JSON.stringify(products);
     }
@@ -82,15 +74,10 @@ class Product extends Component {
         ).amount * val.quantity);
     });
     localStorage["totalCardAmount"] = amount.toFixed(2);
-    // this.props.handleClose();
   }
-
-
 
   displaySingleProduct() {
     var data = this.props.data;
-
-    // console.log(data);
 
     if (data.loading) {
       return <div>Loading products</div>;
@@ -103,12 +90,6 @@ class Product extends Component {
         var imgprod = this.props.data.product.gallery;
 
         var attrib = this.props.data.product.attributes;
-        
-
-        // var attr = this.props.data.product.attributes.items
-
-        // console.log(attrib[0].id);
-        // console.log(prod.inStock);
 
         return (
           <div className="product-detail-section">
@@ -158,7 +139,6 @@ class Product extends Component {
                                   }
                                   value={item.displayValue}
                                   style={{ backgroundColor: item.value }}
-                                
                                 ></button>
                               ) : (
                                 <button
@@ -167,7 +147,6 @@ class Product extends Component {
                                   onClick={(e) =>
                                     this.onChangeSizeHandler(e, attribute.id)
                                   }
-                                 
                                 >
                                   {" "}
                                   {item.value}
@@ -179,7 +158,7 @@ class Product extends Component {
                       ))}
                   </form>
                 </div>
-                
+
                 <div className="product-price">
                   <span>price : </span>
                   <span>
@@ -213,7 +192,6 @@ class Product extends Component {
   }
 
   render() {
-    // console.log(this.props.data.product);
     return (
       <>
         <div>{this.displaySingleProduct()}</div>

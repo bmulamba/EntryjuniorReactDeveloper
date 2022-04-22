@@ -14,36 +14,16 @@ class ProductList extends React.Component {
       categoryName: "All",
       modalVisibility: false,
       productId: "",
-      // attributes: {},
     };
 
     this.addToCart = this.addToCart.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
-  // handleVisibilty(id){
-  //   this.setState({modalVisibility : true, productId : id})
-  // }
 
   hideModal() {
     this.setState({ modalVisibility: false });
   }
-
-  // selectedAttributes = []
-  // componentDidUpdate(){
-  //   this.selectedAttributes = this.state.attributes
-  // }
-
-  // onChangeSizeHandler = (e, attributeType) => {
-  //   e.preventDefault();
-
-  //   let temp = {...this.state.attributes};
-  //   attributeType = e.target.value;
-  //   this.setState({ size: e.target.value, attributes: temp });
-
-  //   console.log(e.target.value);
-
-  // };
 
   addToCart(item, attributes = null) {
     let attributesArray = [];
@@ -54,13 +34,9 @@ class ProductList extends React.Component {
         attributesArray.push({ key: keys[i], value: values[i] });
       }
     }
-    // console.log(attributesArray)
-
-    // attributesArray.push(attributes)
-
+  
     item["quantity"] = 1;
-    // let productAttributes = []
-    // console.log(this.selectedAttributes);
+
     item["attributes"] = attributesArray;
 
     if (localStorage["cardProduct"] == null) {
@@ -85,7 +61,6 @@ class ProductList extends React.Component {
         ).amount * val.quantity);
     });
     localStorage["totalCardAmount"] = amount.toFixed(2);
-    // this.props.handleClose();
   }
 
   displayProducts = () => {
@@ -198,8 +173,6 @@ class ProductList extends React.Component {
       products = this.props.data.categories[0].products;
     }
     let selectedProduct = products.filter((p) => p.id === this.state.productId);
-
-    // console.log(products);
 
     return (
       <div>

@@ -8,14 +8,14 @@
 
   .btn-cls {
     font-size: 30px;
-  font-weight: bold;
-  background-color: rgba(133, 124, 124, 0.6);
-  color: red;
-  padding: 1rem;
-  margin: 20px;
-  float: right;
-  margin-right: 10;
-  border: none;
+    font-weight: bold;
+    background-color: rgba(133, 124, 124, 0.6);
+    color: red;
+    padding: 1rem;
+    margin: 20px;
+    float: right;
+    margin-right: 10;
+    border: none;
   }
 }
 
@@ -35,47 +35,46 @@
   height: 12%;
   margin: 0 auto;
 }
-  p {
-    font-size: 20px;
-    font-weight: 600;
-  }
+p {
+  font-size: 20px;
+  font-weight: 600;
+}
 
-  .btn-modalProduct {
-    padding: 5px;
-    margin:4px;
-    width: 50px;
-    height: 45px;
-    border: 1px solid grey;
-  }
+.btn-modalProduct {
+  padding: 5px;
+  margin: 4px;
+  width: 50px;
+  height: 45px;
+  border: 1px solid grey;
+}
 
-  .btn-add-to-cart-modal {
-    padding: 10px;
-    font-size: 18px; 
-    text-transform: uppercase;
-    border: none;
-    color: white;
-    width: 45%;
-    background-color: green ;
-  }
+.btn-add-to-cart-modal {
+  padding: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border: none;
+  color: white;
+  width: 45%;
+  background-color: green;
+}
 
-  .btn-add-cancel {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-  }
+.btn-add-cancel {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
 
-  .activeColor {
-    background-color: black;
-    color: white;
-  }
+.activeColor {
+  background-color: black;
+  color: white;
+}
 
-  .btn-cancel {
-    background-color: red;
-    padding: 10px;
-    font-size: 18px;
-    text-transform: uppercase;
-    border: none;
-    width: 45%;
-  }
-
+.btn-cancel {
+  background-color: red;
+  padding: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border: none;
+  width: 45%;
+}

@@ -11,10 +11,8 @@ export default class MiniCart extends Component {
     };
   }
 
-
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
-    // console.log(addedProducts);
     return addedProducts.map((val) => {
       return (
         <>
@@ -39,16 +37,15 @@ export default class MiniCart extends Component {
                   <i className="fa fa-trash fa-lg"></i>
                 </span>
                 <div className="button-prod-cart">
-                  {val.attributes.map((v , i) =>
-                    v.key === "Color"  ? (
+                  {val.attributes.map((v, i) =>
+                    v.key === "Color" ? (
                       <button
                         className="btn-value"
                         key={v.key + i}
                         style={{ backgroundColor: v.value }}
                       ></button>
                     ) : (
-                      <button className="btn-value" 
-                      key={v.key + i}>
+                      <button className="btn-value" key={v.key + i}>
                         {v.value}
                       </button>
                     )
@@ -57,7 +54,6 @@ export default class MiniCart extends Component {
               </div>
               <div className="item-prod-belt-right">
                 <div className="button-prod-quantity">
-                  
                   <button
                     className="button-quantity"
                     onClick={() => {
@@ -164,7 +160,6 @@ export default class MiniCart extends Component {
   }
 
   render() {
-    // console.log(JSON.parse(localStorage["cardProduct"]));
     return (
       <div>
         {this.props.handleVisibilty ? (
