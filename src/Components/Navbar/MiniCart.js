@@ -11,12 +11,6 @@ export default class MiniCart extends Component {
     };
   }
 
-  // displayProductAttributes = (attribute) => {
-  //   var keys = Object.keys(attribute)
-  //   var values = Object.values(attribute)
-
-
-  // }
 
   displayCard = () => {
     const addedProducts = JSON.parse(localStorage["cardProduct"]);
@@ -44,17 +38,26 @@ export default class MiniCart extends Component {
                 >
                   <i className="fa fa-trash fa-lg"></i>
                 </span>
-                {/* <div className="button-prod-cart">
-                  {val.attributes[0].map((value, i) => {
-                    return (
-                    <div key= {i}>
-                      {value}
-                    </div> )
-    })}
-                </div> */}
+                <div className="button-prod-cart">
+                  {val.attributes.map((v , i) =>
+                    v.key === "Color"  ? (
+                      <button
+                        className="btn-value"
+                        key={v.key + i}
+                        style={{ backgroundColor: v.value }}
+                      ></button>
+                    ) : (
+                      <button className="btn-value" 
+                      key={v.key + i}>
+                        {v.value}
+                      </button>
+                    )
+                  )}
+                </div>
               </div>
               <div className="item-prod-belt-right">
                 <div className="button-prod-quantity">
+                  
                   <button
                     className="button-quantity"
                     onClick={() => {
@@ -73,7 +76,7 @@ export default class MiniCart extends Component {
                       this.setState({ productQuantity: 0 });
                       this.minusToCart(val);
                     }}
-                    disabled={val.quantity == 0}
+                    disabled={val.quantity === 0}
                   >
                     -
                   </button>
@@ -161,7 +164,7 @@ export default class MiniCart extends Component {
   }
 
   render() {
-    // console.log(val.attributes);
+    // console.log(JSON.parse(localStorage["cardProduct"]));
     return (
       <div>
         {this.props.handleVisibilty ? (

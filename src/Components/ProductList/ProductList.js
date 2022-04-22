@@ -14,7 +14,7 @@ class ProductList extends React.Component {
       categoryName: "All",
       modalVisibility: false,
       productId: "",
-      attributes: {},
+      // attributes: {},
     };
 
     this.addToCart = this.addToCart.bind(this);
@@ -29,32 +29,39 @@ class ProductList extends React.Component {
     this.setState({ modalVisibility: false });
   }
 
-  selectedAttributes = []
-  componentDidUpdate(){
-    this.selectedAttributes = this.state.attributes
-  }
+  // selectedAttributes = []
+  // componentDidUpdate(){
+  //   this.selectedAttributes = this.state.attributes
+  // }
 
-  onChangeSizeHandler = (e, attributeType) => {
-    e.preventDefault();
-    
-    let temp = {...this.state.attributes};
-    attributeType = e.target.value;
-    this.setState({ size: e.target.value, attributes: temp });
-   
-    // console.log(e.target.value);
-    
-  };
+  // onChangeSizeHandler = (e, attributeType) => {
+  //   e.preventDefault();
 
-  
+  //   let temp = {...this.state.attributes};
+  //   attributeType = e.target.value;
+  //   this.setState({ size: e.target.value, attributes: temp });
+
+  //   console.log(e.target.value);
+
+  // };
+
   addToCart(item, attributes = null) {
     let attributesArray = [];
-    attributesArray.push(attributes)
+    if (attributes != null) {
+      let keys = Object.keys(attributes);
+      let values = Object.values(attributes);
+      for (let i = 0; i < keys.length; i++) {
+        attributesArray.push({ key: keys[i], value: values[i] });
+      }
+    }
+    // console.log(attributesArray)
+
+    // attributesArray.push(attributes)
 
     item["quantity"] = 1;
     // let productAttributes = []
     // console.log(this.selectedAttributes);
-    item["attributes"] = attributesArray
-
+    item["attributes"] = attributesArray;
 
     if (localStorage["cardProduct"] == null) {
       localStorage["cardProduct"] = JSON.stringify([item]);
@@ -81,7 +88,6 @@ class ProductList extends React.Component {
     // this.props.handleClose();
   }
 
-  
   displayProducts = () => {
     var data = this.props.data;
     const selectedCategory = localStorage["category"];
@@ -97,7 +103,7 @@ class ProductList extends React.Component {
     }
 
     if (data.loading) {
-      return <div>Loading products</div>;
+      return <div>Loading products ...</div>;
     } else {
       var prod = [];
       if (products.length > 0) {
@@ -193,20 +199,18 @@ class ProductList extends React.Component {
     }
     let selectedProduct = products.filter((p) => p.id === this.state.productId);
 
-    // console.log(products[selectedProduct]);
+    // console.log(products);
 
     return (
       <div>
-        
         {this.displayProducts()}
         <Modal
-        
           handleVisibilty={this.state.modalVisibility}
           handleClose={this.hideModal}
           selectedProductId={this.state.productId}
           selectedSingleProduct={selectedProduct}
           onChangeSizeHandler={this.onChangeSizeHandler}
-          addToCart={this.addToCart} 
+          addToCart={this.addToCart}
         />
       </div>
     );

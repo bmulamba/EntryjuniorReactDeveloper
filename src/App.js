@@ -1,25 +1,30 @@
-import react from 'react';
+import React, { Suspense} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
-import Product from './Components/pages/Product'
-import ProductList from './Components/ProductList/ProductList';
-import Cart from './Components/Cart/Cart';
 import './default.scss';
+import Spinner from './Utilities/Spinner';
 
 
-class App extends react.Component {
+
+const ProductList = React.lazy(() => import("./Components/ProductList/ProductList"));
+
+const Product = React.lazy(() => import("./Components/pages/Product"));
+
+const Cart = React.lazy(() => import("./Components/Cart/Cart"))
+
+
+class App extends React.Component {
   render(){
   return (
     <div >
       <Navbar />
-
       <Routes>
-        <Route path="/" element = { <ProductList /> } />
-        <Route path="/all" element = { <ProductList /> } />
-        <Route path="/tech" element = { <ProductList /> } />
-        <Route path="/clothes" element = { <ProductList /> } />
-        <Route path="/product/:id" element = { < Product /> } />  
-        <Route path="/cart" element = { < Cart /> } />  
+        <Route path="/" element = { <Suspense fallback={ < Spinner /> }> <ProductList /> </Suspense> } />
+        <Route path="/all" element = { <Suspense fallback={ < Spinner /> }> <ProductList /> </Suspense> } />
+        <Route path="/tech" element = { <Suspense fallback={ < Spinner /> }> <ProductList /> </Suspense> } />
+        <Route path="/clothes" element = { <Suspense fallback={ < Spinner /> }> <ProductList /> </Suspense> } />
+        <Route path="/product/:id" element = { <Suspense fallback={ < Spinner /> }> < Product /> </Suspense> } />  
+        <Route path="/cart" element = { <Suspense fallback={ < Spinner /> }> < Cart /> </Suspense> } />  
       </Routes>
     </div>
   )};

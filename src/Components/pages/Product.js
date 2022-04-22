@@ -10,7 +10,7 @@ class Product extends Component {
 
     this.state = {
       imgIndex: 0,
-      attributes: {}
+      attributes : []
     };
 
   }
@@ -18,33 +18,73 @@ class Product extends Component {
   onChangeSizeHandler = (e, attributeType) => {
     e.preventDefault();
     let temp = { ...this.state.attributes };
-    temp[attributeType] = e.target.value;
     this.setState({ size: e.target.value, attributes: temp });
+    temp[attributeType] = e.target.value;
   };
 
- 
   selectedAttributes = [];
-  componentDidUpdate = () => {
+  componentDidUpdate() {
     this.selectedAttributes = this.state.attributes;
+    // console.log(this.state.attributes);
+  }
+ 
+  addProductToCart = (e) => {
+    // console.log("clikced");
+    e.preventDefault();
+    var attributesArray = Object.values(this.selectedAttributes);
+    let attributesLength = this.props.data.product.attributes.length;
+    // console.log(this.props.data.product);
+    if (attributesLength === 0) {
+      this.addToCart(this.props.data.product);
+    } else if (attributesLength > 0) {
+      attributesArray.length === attributesLength
+        ? this.addToCart(
+            this.props.data.product,
+            this.selectedAttributes
+          )
+        : alert(`Please select all attributes`);
+    }
+  };
+ 
+  addToCart(item, attributes = null) {
+    let attributesArray = [];
+    if (attributes != null) {
+      let keys = Object.keys(attributes);
+      let values = Object.values(attributes);
+      for (let i = 0; i < keys.length; i++) {
+        attributesArray.push({ key: keys[i], value: values[i] });
+      }
+    }
+ 
+    item["quantity"] = 1;
+   
+    item["attributes"] = attributesArray;
+
+    if (localStorage["cardProduct"] == null) {
+      localStorage["cardProduct"] = JSON.stringify([item]);
+    } else {
+      let products = JSON.parse(localStorage["cardProduct"]) || [];
+      const index = products.findIndex((obj) => obj.id === item.id);
+      if (index >= 0) {
+        products[index].quantity += 1;
+      } else {
+        products.push(item);
+        // this.hideModal();
+      }
+      localStorage["cardProduct"] = JSON.stringify(products);
+    }
+
+    let amount = 0;
+    JSON.parse(localStorage["cardProduct"]).map((val) => {
+      return (amount +=
+        val.prices.find(
+          (p) => p.currency.symbol === localStorage["currencySymbol"]
+        ).amount * val.quantity);
+    });
+    localStorage["totalCardAmount"] = amount.toFixed(2);
+    // this.props.handleClose();
   }
 
-  // addProductToCart = (e, prod) => {
-  //   e.preventDefault();
-  //   if (this.props.data.product.attributes.length === 0) {
-  //     this.addToCart({
-  //       id : prod.id,
-  //       attributes : [],
-  //       size : "item",
-  //     })
-  //   } else if (this.props.data.product.attributes.length > 0) {
-  //     Object.entries(this.props.product.attributes.length).length ===
-  //     Object.entries(this.state.attributes).length ? this.props.addToCart({
-  //       id : prod.id,
-  //       selectedAttributes : this.state.attributes,
-  //       attributes : this.props.product.attributes
-  //     }) : alert(`Please Provide the attributes`)
-  //   }
-  // }
 
 
   displaySingleProduct() {
@@ -114,32 +154,20 @@ class Product extends Component {
                                 <button
                                   key={item.value}
                                   onClick={(e) =>
-                                    this.onChangeSizeHandler(e, item.id)
+                                    this.onChangeSizeHandler(e, attribute.id)
                                   }
                                   value={item.displayValue}
                                   style={{ backgroundColor: item.value }}
-                                  className={
-                                    this.props.data.product.attributes[
-                                      attribute.id
-                                    ] === item.displayValue
-                                      ? "active-color"
-                                      : ""
-                                  }
+                                
                                 ></button>
                               ) : (
                                 <button
                                   value={item.value}
                                   key={item.value}
                                   onClick={(e) =>
-                                    this.onChangeSizeHandler(e, item.id)
+                                    this.onChangeSizeHandler(e, attribute.id)
                                   }
-                                  className={
-                                    this.props.data.product.attributes[
-                                      attribute.id
-                                    ] === item.value
-                                      ? "active"
-                                      : ""
-                                  }
+                                 
                                 >
                                   {" "}
                                   {item.value}
@@ -169,7 +197,7 @@ class Product extends Component {
                 <div className="product-add-cart">
                   <button
                     className="btn-add-to-cart"
-                    onClick={() => this.addToCart(prod)}
+                    onClick={this.addProductToCart}
                     disabled={!prod.inStock}
                   >
                     {prod.inStock ? "add to cart" : "out of stock"}
@@ -185,6 +213,7 @@ class Product extends Component {
   }
 
   render() {
+    // console.log(this.props.data.product);
     return (
       <>
         <div>{this.displaySingleProduct()}</div>

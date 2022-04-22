@@ -5,118 +5,74 @@ export default class Cart extends Component {
   constructor() {
     super();
     this.state = {
-      selectedImg: 0,
       productQuantity: 0,
     };
   }
 
-  // carouselImgHandler = (event, value) => {
-  //   event.preventDefault();
-  //   const selectTemp = (this.state.selectedImg + value) % product.gallery.length;
-  //   selectTemp >= 0
-  //     ? this.setState({selectedImg : selectTemp })
-  //     : this.setState({ selectedImg : product.gallery.length + selectTemp})
-  // }
-
   cartdetails = () => {
     var products = JSON.parse(localStorage["cardProduct"]);
-    // console.log(localStorage["productSize"]);
     return products.map((product) => {
       return (
-        <div key={product.id}>
-          <div className="cart-description">
-            <div className="cart-desc-belt">
-              <h3 id="product-name">{product.name}</h3>
-              <h3 id="product-type py-5">{product.brand}</h3>
-              <h3 id="product-type">
-                {localStorage["currencySymbol"]}{" "}
-                {
-                  product.prices.find(
-                    (p) => p.currency.symbol === localStorage["currencySymbol"]
-                  ).amount
-                }
-              </h3>
-              {/* <div className="cart-size">
-                <span>{localStorage["productSize"]}</span>
-              </div> */}
-            </div>
-            <div className="cart-mini-imag">
-              <div className="cart-mini-add">
-                <button
-                  onClick={() => {
-                    this.setState({ productQuantity: 0 });
-                    this.addToCart(product);
-                  }}
-                >
-                  +
-                </button>
-                <h4 className="cart-quantity">{product.quantity}</h4>
-                <button
-                  onClick={() => {
-                    this.setState({ productQuantity: 0 });
-                    this.minusToCart(product);
-                  }}
-                  disabled={product.quantity == 1}
-                >
-                  -
-                </button>
+        <div>
+          <div key={product.id}>
+            <div className="cart-description">
+              <div className="cart-desc-belt">
+                <h3 id="product-name">{product.name}</h3>
+                <h3 id="product-type py-5">{product.brand}</h3>
+                <h3 id="product-type">
+                  {localStorage["currencySymbol"]}{" "}
+                  {
+                    product.prices.find(
+                      (p) =>
+                        p.currency.symbol === localStorage["currencySymbol"]
+                    ).amount
+                  }
+                </h3>
+                <div className="cart-size">
+                  {product.attributes.map((v, i) =>
+                    v.key === "Color" ? (
+                      <button
+                        className="btn-value"
+                        key={v.key + i}
+                        style={{ backgroundColor: v.value }}
+                      ></button>
+                    ) : (
+                      <button className="btn-value" key={v.key + i}>
+                        {v.value}
+                      </button>
+                    )
+                  )}
+                </div>
               </div>
-              <div className="cart-img">
-                {product.gallery === 1 ? (
+              <div className="cart-mini-imag">
+                <div className="cart-mini-add">
+                  <button
+                    onClick={() => {
+                      this.setState({ productQuantity: 0 });
+                      this.addToCart(product);
+                    }}
+                  >
+                    +
+                  </button>
+                  <h4 className="cart-quantity">{product.quantity}</h4>
+                  <button
+                    onClick={() => {
+                      this.setState({ productQuantity: 0 });
+                      this.minusToCart(product);
+                    }}
+                    disabled={product.quantity === 1}
+                  >
+                    -
+                  </button>
+                </div>
+                <div className="cart-img">
                   <div className="cart-mini-img">
                     <img src={product.gallery[0]} alt={product.name} />
                   </div>
-                ) : (
-                  <div
-                    id={"CarouselExampleControls" + product.id}
-                    className="carousel slide"
-                    data-ride="carousel"
-                  >
-                    <div className="carousel-inner">
-                      <div className="carousel-item product-img active">
-                        <div className="product-overlay"></div>
-                        <img
-                          src={product.gallery[this.state.selectedImg]}
-                          alt={product.name}
-                        />
-                      </div>
-                    </div>
-                    <a
-                      className="carousel-control-prev"
-                      href={"#CarouselExampleControls" + product.id}
-                      role="button"
-                      data-slide="prev"
-                      onClick={(event) => {
-                        this.carouselImgHandler(event, -1);
-                      }}
-                    >
-                      prev
-                    </a>
-
-                    <a
-                      className="carousel-control-prev"
-                      href={"#CarouselExampleControls" + product.id}
-                      role="button"
-                      data-slide="prev"
-                      onClick={(event) => {
-                        this.carouselImgHandler(event, 1);
-                      }}
-                    >
-                      next
-                    </a>
-                  </div>
-                )}
-                {/* <img src={product.gallery[0]} alt="" /> */}
+                </div>
               </div>
             </div>
           </div>
-          {/* <div className="cart-total">
-            <h3>Total</h3> {" "}
-            <div className="total-side">
-              {localStorage["currencySymbol"]}{" "}
-              {localStorage["totalCardAmount"]}
-            </div>             
-          </div> */}
         </div>
       );
     });
@@ -177,7 +133,7 @@ export default class Cart extends Component {
   removeItemFromCart(id) {
     var products = JSON.parse(localStorage["cardProduct"]);
     let amount = localStorage["totalCardAmount"];
-    for (var i = 0; i < products.length; i++) {
+    for (var i = 1; i < products.length; i++) {
       if (id === products[i].id) {
         amount -=
           products[i].prices.find(
@@ -200,6 +156,13 @@ export default class Cart extends Component {
             <div className="title">
               <h1>cart</h1>
               {this.cartdetails()}
+              <div className="cart-total">
+                <h3>Total</h3>{" "}
+                <div className="total-side">
+                  {localStorage["currencySymbol"]}{" "}
+                  {localStorage["totalCardAmount"]}
+                </div>
+              </div>
             </div>
           </div>
         </div>

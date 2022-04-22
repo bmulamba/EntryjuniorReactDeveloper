@@ -28,9 +28,7 @@
         height: auto;
         justify-content: space-between;
         padding-bottom: 2rem;
-        // border-top: 1px solid gray;
-        // padding: 10px 0;
-
+ 
         #product-name {
           text-transform: capitalize;
           margin-bottom: 6px;
@@ -47,11 +45,12 @@
         .cart-size {
           display: flex;
 
-          span {
-            text-transform: capitalize;
-            padding: .7rem;
-            margin: 1rem 20px 20px 0;
-            border: 1px solid rgb(128, 128, 128);
+          .btn-value {
+            padding: 5px 13px;
+            background-color: transparent;
+            border: none;
+            outline: 1px solid $gray-color;
+            margin: 8px 8px 0px 0px;
           }
         }
       }
@@ -68,7 +67,6 @@
           button {
             width: 60px;
             height: 60px;
-            // padding: .6rem .8rem;
             border: 1px solid grey;
             margin: 0 1rem;
             font-size: 30px;

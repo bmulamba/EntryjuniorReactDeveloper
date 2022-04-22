@@ -100,13 +100,14 @@
 
     .button-prod-cart {
       margin-top: -6px;
-
-      .button-attribute {
+      display: flex;
+      flex-direction: row;       
+      .btn-value {
         padding: 5px 13px;
         background-color: transparent;
         border: none;
         outline: 1px solid $gray-color;
-        margin-right: 8px;
+        margin: 8px 8px 0px 0px;
       }
     }
   }

@@ -15,43 +15,34 @@ export default class Modal extends Component {
     let temp = { ...this.state.attributes };
     this.setState({ size: e.target.value, attributes: temp });
     temp[attributeType] = e.target.value;
-   
-
-    // console.log(e.target.value);
   };
 
   selectedAttributes = [];
   componentDidUpdate() {
     this.selectedAttributes = this.state.attributes;
+    console.log(this.state.attributes);
   }
 
   addProductToCart = (e) => {
     e.preventDefault();
-    var attributesArray = Object.values(this.selectedAttributes)
-    let attributesLength = this.props.selectedSingleProduct[0].attributes.length
+    var attributesArray = Object.values(this.selectedAttributes);
+    let attributesLength =
+      this.props.selectedSingleProduct[0].attributes.length;
     if (attributesLength === 0) {
       this.props.addToCart(this.props.selectedSingleProduct[0]);
     } else if (attributesLength > 0) {
-      console.log(attributesArray);
       attributesArray.length === attributesLength
         ? this.props.addToCart(
-          this.props.selectedSingleProduct[0], this.selectedAttributes
+            this.props.selectedSingleProduct[0],
+            this.selectedAttributes
           )
-        : alert(`Please Provide the attributes`);
+        : alert(`Please select all attributes`);
     }
+    this.setState({ attributes: [] });
   };
 
   render() {
-    // console.log(this.props.selectedProductId);
-    // console.log(this.props.selectedSingleProduct[0].attributes.length);
-
-    // console.log(this.props.selectedSingleProduct.brand);
-
     var attrib = this.props.selectedSingleProduct;
-
-    // console.log(this.props.selectedSingleProduct);
-
-    // console.log(attrib);
 
     return (
       <div>
@@ -81,10 +72,7 @@ export default class Modal extends Component {
                                 value={item.displayValue}
                                 style={{ backgroundColor: item.value }}
                                 onClick={(e) =>
-                                  this.onChangeSizeHandler(
-                                    e,
-                                    attribute.id
-                                  )
+                                  this.onChangeSizeHandler(e, attribute.id)
                                 }
                               ></button>
                             ) : (
@@ -93,10 +81,7 @@ export default class Modal extends Component {
                                 className="btn-modalProduct"
                                 key={item.value}
                                 onClick={(e) =>
-                                  this.onChangeSizeHandler(
-                                    e,
-                                    attribute.id
-                                  )
+                                  this.onChangeSizeHandler(e, attribute.id)
                                 }
                               >
                                 {" "}
